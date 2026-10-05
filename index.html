@@ -1,400 +1,635 @@
-<!-- Layout: full-bleed hero header + 4-col responsive card grid -->
-<title>Dashboard Hub</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap">
-<style>
-/* ── Token system ───────────────────────────────────────────── */
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BikeDekho Business Analytics</title>
+  <meta name="description" content="BikeDekho Business Analytics — Dashboard Hub">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <style>
+/* ── Design Tokens: Light Theme ─────────────────────────────── */
 :root {
-  --violet:     #8B5CF6;
-  --violet-d:   #7C3AED;
-  --violet-900: #4C1D95;
-  --violet-50:  #F5F3FF;
-  --violet-100: #EDE9FE;
-  --violet-200: #DDD6FE;
-  --pink:       #EC4899;
-  --pink-100:   #FCE7F3;
-  --pink-50:    #FDF2F8;
-  --mint:       #14B8A6;
-  --mint-50:    #F0FDFA;
-  --sky:        #0EA5E9;
-  --sky-50:     #F0F9FF;
-  --peach:      #FB923C;
-  --bg:         #FFFFFF;
-  --bg-subtle:  #FAFAFA;
-  --fg:         #1e1b2e;
-  --fg-muted:   #7c6f9c;
-  --border:     var(--violet-100);
-  --shadow:     0 2px 10px rgba(76,29,149,.07),0 1px 3px rgba(76,29,149,.05),0 0 0 1px rgba(139,92,246,.07);
-  color-scheme: light;
+  --bg:          #FFFFFF;
+  --surface:     #FFFFFF;
+  --accent:      #2563EB;
+  --accent-dark: #1D4ED8;
+  --accent-glow: rgba(37,99,235,0.14);
+  --accent-sub:  rgba(37,99,235,0.08);
+  --oem:         #7C3AED;
+  --oem-glow:    rgba(124,58,237,0.14);
+  --oem-sub:     rgba(124,58,237,0.08);
+  --biz:         #059669;
+  --biz-glow:    rgba(5,150,105,0.14);
+  --biz-sub:     rgba(5,150,105,0.08);
+  --ink:         #111827;
+  --ink-2:       #374151;
+  --muted:       #6B7280;
+  --rule:        #DDE2EF;
+  --sh-sm: 0 1px 3px rgba(13,21,38,.07),0 1px 2px rgba(13,21,38,.04);
+  --sh-md: 0 4px 16px rgba(13,21,38,.10),0 1px 4px rgba(13,21,38,.06);
+  --sh-lg: 0 8px 32px rgba(13,21,38,.13),0 2px 8px rgba(13,21,38,.07);
+  --radius:    14px;
+  --radius-sm: 8px;
 }
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg:         #0f0d1a;
-    --bg-subtle:  #1a1730;
-    --fg:         #e8e3f8;
-    --fg-muted:   #9d92c0;
-    --border:     rgba(139,92,246,.18);
-    --shadow:     0 2px 12px rgba(0,0,0,.35),0 0 0 1px rgba(139,92,246,.12);
-    --violet-50:  rgba(139,92,246,.08);
-    --violet-100: rgba(139,92,246,.12);
-    --violet-200: rgba(139,92,246,.22);
-    --pink-50:    rgba(236,72,153,.06);
-    --pink-100:   rgba(236,72,153,.12);
-    --mint-50:    rgba(20,184,166,.08);
-    --sky-50:     rgba(14,165,233,.08);
-    color-scheme: dark;
+    --bg:          #08101E;
+    --surface:     #101929;
+    --accent:      #3B82F6;
+    --accent-dark: #60A5FA;
+    --accent-glow: rgba(59,130,246,0.18);
+    --accent-sub:  rgba(59,130,246,0.10);
+    --oem:         #A78BFA;
+    --oem-glow:    rgba(167,139,250,0.18);
+    --oem-sub:     rgba(167,139,250,0.10);
+    --biz:         #10B981;
+    --biz-glow:    rgba(16,185,129,0.18);
+    --biz-sub:     rgba(16,185,129,0.10);
+    --ink:         #F3F4F6;
+    --ink-2:       #D1D5DB;
+    --muted:       #9CA3AF;
+    --rule:        #1E2D47;
+    --sh-sm: 0 1px 3px rgba(0,0,0,.30),0 1px 2px rgba(0,0,0,.20);
+    --sh-md: 0 4px 16px rgba(0,0,0,.40),0 1px 4px rgba(0,0,0,.25);
+    --sh-lg: 0 8px 32px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.30);
   }
 }
-:root[data-theme="dark"] {
-  --bg:         #0f0d1a;
-  --bg-subtle:  #1a1730;
-  --fg:         #e8e3f8;
-  --fg-muted:   #9d92c0;
-  --border:     rgba(139,92,246,.18);
-  --shadow:     0 2px 12px rgba(0,0,0,.35),0 0 0 1px rgba(139,92,246,.12);
-  --violet-50:  rgba(139,92,246,.08);
-  --violet-100: rgba(139,92,246,.12);
-  --violet-200: rgba(139,92,246,.22);
-  --pink-50:    rgba(236,72,153,.06);
-  --pink-100:   rgba(236,72,153,.12);
-  --mint-50:    rgba(20,184,166,.08);
-  --sky-50:     rgba(14,165,233,.08);
-  color-scheme: dark;
+
+[data-theme="dark"] {
+  --bg:          #08101E;
+  --surface:     #101929;
+  --accent:      #3B82F6;
+  --accent-dark: #60A5FA;
+  --accent-glow: rgba(59,130,246,0.18);
+  --accent-sub:  rgba(59,130,246,0.10);
+  --oem:         #A78BFA;
+  --oem-glow:    rgba(167,139,250,0.18);
+  --oem-sub:     rgba(167,139,250,0.10);
+  --biz:         #10B981;
+  --biz-glow:    rgba(16,185,129,0.18);
+  --biz-sub:     rgba(16,185,129,0.10);
+  --ink:         #F3F4F6;
+  --ink-2:       #D1D5DB;
+  --muted:       #9CA3AF;
+  --rule:        #1E2D47;
+  --sh-sm: 0 1px 3px rgba(0,0,0,.30),0 1px 2px rgba(0,0,0,.20);
+  --sh-md: 0 4px 16px rgba(0,0,0,.40),0 1px 4px rgba(0,0,0,.25);
+  --sh-lg: 0 8px 32px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.30);
 }
 
-/* ── Reset & base ──────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--fg);
-  padding-inline: 24px;
-  padding-block: 0;
-  min-height: 100%;
-  -webkit-font-smoothing: antialiased;
+[data-theme="light"] {
+  --bg:          #FFFFFF;
+  --surface:     #FFFFFF;
+  --accent:      #2563EB;
+  --accent-dark: #1D4ED8;
+  --accent-glow: rgba(37,99,235,0.14);
+  --accent-sub:  rgba(37,99,235,0.08);
+  --oem:         #7C3AED;
+  --oem-glow:    rgba(124,58,237,0.14);
+  --oem-sub:     rgba(124,58,237,0.08);
+  --biz:         #059669;
+  --biz-glow:    rgba(5,150,105,0.14);
+  --biz-sub:     rgba(5,150,105,0.08);
+  --ink:         #111827;
+  --ink-2:       #374151;
+  --muted:       #6B7280;
+  --rule:        #DDE2EF;
+  --sh-sm: 0 1px 3px rgba(13,21,38,.07),0 1px 2px rgba(13,21,38,.04);
+  --sh-md: 0 4px 16px rgba(13,21,38,.10),0 1px 4px rgba(13,21,38,.06);
+  --sh-lg: 0 8px 32px rgba(13,21,38,.13),0 2px 8px rgba(13,21,38,.07);
 }
 
-/* ── Header ────────────────────────────────────────────────── */
-.site-header {
-  padding-block: 28px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.brand-logo {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--violet-d), var(--pink));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-  font-weight: 700;
-  color: #fff;
-  font-family: 'DM Mono', monospace;
-}
-.brand-text h1 {
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: -.02em;
-  background: linear-gradient(135deg, var(--violet-d), var(--pink));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-wrap: balance;
-}
-.brand-text p {
-  font-size: 12px;
-  color: var(--fg-muted);
-  margin-top: 2px;
-  font-family: 'DM Mono', monospace;
-  letter-spacing: .03em;
-}
-.header-pill {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  color: var(--violet-d);
-  background: var(--violet-50);
-  border: 1px solid var(--violet-200);
-  border-radius: 20px;
-  padding: 5px 14px;
-  white-space: nowrap;
-}
+/* ── Reset ──────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+a{text-decoration:none;color:inherit}
 
-/* ── Section heading ───────────────────────────────────────── */
-.section-label {
-  font-size: 10.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .10em;
-  color: var(--fg-muted);
-  padding-block: 24px 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
+/* ── Accent bar ─────────────────────────────────────────────── */
+.accent-bar{height:4px;background:linear-gradient(90deg,#2563EB 0%,#7C3AED 55%,#0EA5E9 100%);position:sticky;top:0;z-index:110}
 
-/* ── Grid ──────────────────────────────────────────────────── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 14px;
-  margin-bottom: 32px;
-}
+/* ── Sticky header ──────────────────────────────────────────── */
+.site-header{position:sticky;top:4px;z-index:100;background:var(--surface);border-bottom:1px solid var(--rule);box-shadow:var(--sh-sm)}
+.header-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:62px;display:flex;align-items:center;gap:14px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-icon{width:34px;height:34px;border-radius:9px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;box-shadow:0 2px 10px var(--accent-glow)}
+.logo-text{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-0.02em;white-space:nowrap}
+.theme-toggle{width:36px;height:36px;border:1.5px solid var(--rule);border-radius:var(--radius-sm);background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:color .2s,border-color .2s,background .2s}
+.theme-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-sub)}
+.theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-/* ── Card ──────────────────────────────────────────────────── */
-.card {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px 20px 16px;
-  box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: transform .12s, box-shadow .12s, border-color .12s;
-  text-decoration: none;
-  color: inherit;
-  position: relative;
-  overflow: hidden;
-}
-.card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 13px;
-  background: var(--card-accent, linear-gradient(135deg, var(--violet-50), transparent 60%));
-  opacity: 0;
-  transition: opacity .14s;
-  pointer-events: none;
-}
-.card:hover {
-  transform: translateY(-2px);
-  border-color: var(--violet-200);
-  box-shadow: 0 6px 24px rgba(76,29,149,.11),0 1px 4px rgba(76,29,149,.07),0 0 0 1px rgba(139,92,246,.12);
-}
-.card:hover::before { opacity: 1; }
-.card:focus-visible {
-  outline: 2px solid var(--violet);
-  outline-offset: 2px;
-}
+/* ── Search ─────────────────────────────────────────────────── */
+.search-wrap{position:relative;flex:1;max-width:480px;min-width:0}
+.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none}
+#search-input{width:100%;padding:9px 42px 9px 36px;font-family:inherit;font-size:13.5px;color:var(--ink);background:var(--bg);border:1.5px solid var(--rule);border-radius:var(--radius-sm);box-shadow:var(--sh-sm);outline:none;transition:border-color .2s,box-shadow .2s}
+#search-input::placeholder{color:var(--muted)}
+#search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow),var(--sh-sm)}
+.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:24px;height:24px;border:none;background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;border-radius:4px;transition:color .2s}
+.search-clear:hover{color:var(--ink)}
+.search-clear:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-.card-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-  background: var(--icon-bg, var(--violet-50));
-  border: 1px solid var(--icon-border, var(--violet-200));
-}
-.card-body { flex: 1; min-width: 0; }
-.card-name {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: -.01em;
-  color: var(--fg);
-  margin-bottom: 3px;
-  text-wrap: balance;
-}
-.card-desc {
-  font-size: 11.5px;
-  color: var(--fg-muted);
-  line-height: 1.5;
-  font-family: 'DM Mono', monospace;
-}
-.card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding-top: 8px;
-  border-top: 1px solid var(--border);
-  margin-top: auto;
-}
-.card-tag {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .07em;
-  padding: 2px 9px;
-  border-radius: 20px;
-  background: var(--tag-bg, var(--violet-50));
-  color: var(--tag-fg, var(--violet-900));
-  border: 1px solid var(--tag-border, var(--violet-200));
-}
-.card-arrow {
-  font-size: 14px;
-  color: var(--violet-d);
-  font-weight: 700;
-  line-height: 1;
-}
+/* ── Hero ───────────────────────────────────────────────────── */
+.hero{padding:60px 24px 52px;text-align:center;animation:fadeUp .55s ease both}
+.hero-brand{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:20px}
+.hero-brand-text{font-size:1.6rem;font-weight:800;color:#2C3A47;letter-spacing:-0.5px}
+[data-theme="dark"] .hero-brand-text,[data-theme="dark"] .hero-brand-text{color:#f1f5f9}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero-brand-text{color:#f1f5f9}}
+.hero-pill{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.11em;text-transform:uppercase;color:var(--accent);background:var(--accent-sub);border:1px solid var(--accent-glow);padding:5px 14px;border-radius:100px;margin-bottom:22px}
+.hero h1{font-size:clamp(1.9rem,4vw + 0.5rem,3rem);font-weight:800;color:var(--ink);letter-spacing:-0.035em;line-height:1.13;text-wrap:balance;margin-bottom:14px}
+.hero-date{font-size:12.5px;color:var(--muted);margin-bottom:0;font-variant-numeric:tabular-nums;opacity:.8}
 
-/* ── Footer ────────────────────────────────────────────────── */
-.site-footer {
-  border-top: 1px solid var(--border);
-  padding-block: 18px 24px;
-  font-size: 12px;
-  color: var(--fg-muted);
-  text-align: center;
-  font-family: 'DM Mono', monospace;
-}
+/* ── Stats ──────────────────────────────────────────────────── */
+.stats-row{max-width:1200px;margin:0 auto 52px;padding:0 24px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:fadeUp .55s .12s ease both}
+.stat-tile{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius);padding:18px 30px;box-shadow:var(--sh-sm);text-align:center;flex:1;min-width:130px;max-width:195px;transition:transform .22s ease,box-shadow .22s ease}
+.stat-tile:hover{transform:translateY(-2px);box-shadow:var(--sh-md)}
+.stat-num{display:block;font-size:30px;font-weight:800;color:var(--accent);letter-spacing:-0.03em;line-height:1;font-variant-numeric:tabular-nums;margin-bottom:5px}
+.stat-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted)}
 
-/* ── Responsive ────────────────────────────────────────────── */
-@media (max-width: 600px) {
-  body { padding-inline: 16px; }
-  .site-header { padding-block: 20px 16px; }
-  .grid { grid-template-columns: 1fr; gap: 10px; }
-  .brand-text h1 { font-size: 15px; }
-}
-</style>
+/* ── Main ───────────────────────────────────────────────────── */
+.main-content{max-width:1200px;margin:0 auto;padding:0 24px 72px}
 
-<!-- Header -->
-<header class="site-header">
-  <div class="brand">
-    <div class="brand-logo">BD</div>
-    <div class="brand-text">
-      <h1>Bikes Enterprise · Dashboard Hub</h1>
-      <p>Lead Performance Analytics</p>
+/* ── No results ─────────────────────────────────────────────── */
+.no-results{text-align:center;padding:64px 24px;animation:fadeUp .3s ease both}
+.nr-icon{font-size:44px;color:var(--rule);margin-bottom:16px}
+.no-results h3{font-size:17px;font-weight:600;color:var(--ink-2);margin-bottom:6px}
+.no-results p{font-size:14px;color:var(--muted)}
+
+/* ── Sections ───────────────────────────────────────────────── */
+.dash-section{margin-bottom:52px;animation:fadeUp .55s .2s ease both}
+.dash-section + .dash-section{animation-delay:.28s}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--rule)}
+.section-icon{width:32px;height:32px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.section-ops .section-icon{background:var(--accent-sub);color:var(--accent)}
+.section-oem .section-icon{background:var(--oem-sub);color:var(--oem)}
+.section-biz .section-icon{background:var(--biz-sub);color:var(--biz)}
+.section-title-group h2{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-0.01em}
+.section-count{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* ── Card grid ──────────────────────────────────────────────── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+
+/* ── Dashboard card ─────────────────────────────────────────── */
+.dash-card{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1.5px solid var(--rule);border-radius:var(--radius);box-shadow:var(--sh-sm);overflow:hidden;cursor:pointer;outline:none;text-decoration:none;color:inherit;transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s ease,border-color .22s ease}
+.dash-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c-accent);transition:width .2s ease;z-index:1}
+.dash-card:hover{transform:translateY(-5px);box-shadow:var(--sh-lg),0 0 0 1.5px var(--c-accent);border-color:transparent}
+.dash-card:hover::before{width:4px}
+.dash-card:focus-visible{box-shadow:0 0 0 3px var(--c-glow),var(--sh-md);border-color:var(--c-accent);outline:none}
+.card-ops{--c-accent:var(--accent);--c-glow:var(--accent-glow);--c-sub:var(--accent-sub)}
+.card-oem{--c-accent:var(--oem);--c-glow:var(--oem-glow);--c-sub:var(--oem-sub)}
+.card-biz{--c-accent:var(--biz);--c-glow:var(--biz-glow);--c-sub:var(--biz-sub)}
+.card-body{padding:20px 20px 14px 24px;flex:1}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:14px}
+.card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;background:var(--c-sub);color:var(--c-accent);flex-shrink:0;transition:transform .22s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
+.dash-card:hover .card-icon{transform:scale(1.1)}
+.card-badge{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-accent);background:var(--c-sub);padding:3px 9px;border-radius:100px;white-space:nowrap;margin-top:4px}
+.card-title{font-size:14.5px;font-weight:700;color:var(--ink);letter-spacing:-0.01em;line-height:1.3;margin-bottom:8px;text-wrap:balance}
+.card-desc{font-size:13px;color:var(--muted);line-height:1.55}
+.card-footer{padding:11px 20px 14px 24px;border-top:1px solid var(--rule);display:flex;align-items:center}
+.card-cta{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--c-accent);letter-spacing:-0.005em;transition:gap .2s ease}
+.card-cta i{font-size:11px;transition:transform .2s ease}
+.dash-card:hover .card-cta{gap:9px}
+.dash-card:hover .card-cta i{transform:translateX(2px)}
+.dash-card.hidden{display:none}
+
+/* ── OEM logo banner ────────────────────────────────────────── */
+.card-logo-banner{width:100%;height:116px;background:#ffffff;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:center;padding:14px 32px;overflow:hidden;flex-shrink:0}
+.card-logo-banner img{max-width:100%;max-height:84px;width:auto;height:auto;object-fit:contain;display:block}
+.card-logo-banner + .card-body{padding:16px 20px 12px 24px}
+.card-logo-banner + .card-body .card-badge{display:inline-flex;margin-bottom:10px;margin-top:0}
+.card-logo-banner + .card-body .card-title{margin-bottom:6px}
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.site-footer{background:var(--surface);border-top:1px solid var(--rule);padding:24px}
+.footer-inner{max-width:1200px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:5px}
+.ft-primary{font-size:13px;font-weight:500;color:var(--ink-2)}
+.ft-secondary{font-size:12px;color:var(--muted)}
+
+/* ── Animations ─────────────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media(max-width:768px){
+  .hero{padding:44px 20px 36px}
+  .hero h1{font-size:1.8rem}
+  .stats-row{margin-bottom:36px}
+  .stat-tile{min-width:100px;padding:14px 16px}
+  .stat-num{font-size:26px}
+  .card-grid{grid-template-columns:1fr;gap:14px}
+  .main-content{padding-bottom:48px}
+  .card-logo-banner{height:100px;padding:10px 24px}
+  .card-logo-banner img{max-height:72px}
+}
+@media(max-width:540px){.logo-text{display:none}}
+@media(max-width:480px){
+  .header-inner{padding:0 12px;gap:10px}
+  .hero{padding:36px 16px 32px}
+  .stats-row{padding:0 16px}
+  .stat-tile{max-width:none;flex:1 1 calc(50% - 7px)}
+  .main-content{padding:0 16px 48px}
+  .site-footer{padding:20px 16px}
+  .card-logo-banner{height:90px;padding:8px 20px}
+  .card-logo-banner img{max-height:66px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+  </style>
+</head>
+<body>
+
+  <!-- Gradient accent stripe -->
+  <div class="accent-bar" role="presentation" aria-hidden="true"></div>
+
+  <!-- STICKY HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo" aria-label="Analytics Hub home">
+        <div class="logo-icon" aria-hidden="true">
+          <i class="fas fa-layer-group"></i>
+        </div>
+        <span class="logo-text">Analytics Hub</span>
+      </div>
+
+      <div class="search-wrap" role="search">
+        <i class="fas fa-magnifying-glass search-icon" aria-hidden="true"></i>
+        <input type="search" id="search-input" placeholder="Search dashboards…" aria-label="Search dashboards by name, description or category" autocomplete="off" spellcheck="false">
+        <button class="search-clear" id="search-clear" aria-label="Clear search" hidden>
+          <i class="fas fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <button class="theme-toggle" id="theme-btn" aria-label="Switch to light mode" title="Toggle light / dark theme">
+        <i class="fas fa-sun" id="theme-ico" aria-hidden="true"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-brand" aria-hidden="true">
+      <svg viewBox="0 0 200 196" xmlns="http://www.w3.org/2000/svg" width="108" height="106">
+        <circle cx="100" cy="120" r="54" fill="none" stroke="#E53935" stroke-width="28"/>
+        <rect x="4" y="56" width="192" height="28" rx="14" fill="#E53935"/>
+      </svg>
+      <span class="hero-brand-text">BikeDekho</span>
+    </div>
+
+    <p class="hero-pill" aria-hidden="true">
+      <i class="fas fa-chart-bar"></i>
+      Business Intelligence
+    </p>
+
+    <h1 id="hero-title">BikeDekho Business Analytics</h1>
+    <p class="hero-date" id="hero-date" aria-label="Today's date">Monday, 5 October 2026</p>
+  </section>
+
+  <!-- STATISTICS -->
+  <div class="stats-row" aria-label="Dashboard counts">
+    <div class="stat-tile">
+      <span class="stat-num" id="stat-total">8</span>
+      <span class="stat-lbl">Total Dashboards</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-num" id="stat-ops">1</span>
+      <span class="stat-lbl">Delivery Trackers</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-num" id="stat-oem">6</span>
+      <span class="stat-lbl">OEM Dashboards</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-num" id="stat-biz">1</span>
+      <span class="stat-lbl">BD Contribution</span>
     </div>
   </div>
-  <span class="header-pill">All Dashboards</span>
-</header>
 
-<!-- LDR Dashboards -->
-<p class="section-label">Brand LDR Dashboards</p>
-<div class="grid">
+  <!-- MAIN CONTENT -->
+  <main class="main-content" id="main-content">
 
-  <a class="card" href="https://royal-enfield-performance-analytics.vercel.app" target="_blank" rel="noopener"
-     style="--card-accent:linear-gradient(135deg,rgba(139,92,246,.06),transparent 60%);--icon-bg:#EDE9FE;--icon-border:#DDD6FE;--tag-bg:#EDE9FE;--tag-fg:#4C1D95;--tag-border:#DDD6FE">
-    <div class="card-icon">🏍️</div>
-    <div class="card-body">
-      <div class="card-name">Royal Enfield LDR</div>
-      <div class="card-desc">Lead delivery report — all RE models</div>
+    <div class="no-results" id="no-results" role="alert" aria-live="polite" aria-atomic="true" hidden>
+      <div class="nr-icon" aria-hidden="true"><i class="fas fa-circle-question"></i></div>
+      <h3>No dashboards found</h3>
+      <p>Try a different search term.</p>
     </div>
-    <div class="card-footer">
-      <span class="card-tag">RE · Vercel</span>
-      <span class="card-arrow">↗</span>
-    </div>
-  </a>
 
-  <a class="card" href="https://kunalkaushal-stack.github.io/ather-ldr-dashboard/ATHER_LDR/ATHER_LDR_Dashboard_v1.0.html" target="_blank" rel="noopener"
-     style="--card-accent:linear-gradient(135deg,rgba(20,184,166,.06),transparent 60%);--icon-bg:#CCFBF1;--icon-border:#99F6E4;--tag-bg:#CCFBF1;--tag-fg:#065F46;--tag-border:#99F6E4">
-    <div class="card-icon">⚡</div>
-    <div class="card-body">
-      <div class="card-name">Ather LDR</div>
-      <div class="card-desc">Lead delivery report — Ather Energy</div>
-    </div>
-    <div class="card-footer">
-      <span class="card-tag" style="--tag-bg:#CCFBF1;--tag-fg:#065F46;--tag-border:#99F6E4">Ather · GitHub</span>
-      <span class="card-arrow">↗</span>
-    </div>
-  </a>
+    <!-- ── Delivery Trackers ── -->
+    <section class="dash-section section-ops" id="sec-ops" aria-labelledby="ops-heading">
+      <div class="section-header">
+        <div class="section-icon" aria-hidden="true"><i class="fas fa-gears"></i></div>
+        <div class="section-title-group">
+          <h2 id="ops-heading">Delivery Trackers</h2>
+          <p class="section-count" id="ops-count">1 dashboard</p>
+        </div>
+      </div>
+      <div class="card-grid" id="grid-ops">
 
-  <a class="card" href="https://kunalkaushal-stack.github.io/kunalkaushal-stack-hero-ldr-dashboard-/" target="_blank" rel="noopener"
-     style="--card-accent:linear-gradient(135deg,rgba(14,165,233,.06),transparent 60%);--icon-bg:#E0F2FE;--icon-border:#BAE6FD;--tag-bg:#E0F2FE;--tag-fg:#0C4A6E;--tag-border:#BAE6FD">
-    <div class="card-icon">🏆</div>
-    <div class="card-body">
-      <div class="card-name">Hero LDR</div>
-      <div class="card-desc">Lead delivery report — Hero MotoCorp</div>
-    </div>
-    <div class="card-footer">
-      <span class="card-tag" style="--tag-bg:#E0F2FE;--tag-fg:#0C4A6E;--tag-border:#BAE6FD">Hero · GitHub</span>
-      <span class="card-arrow">↗</span>
-    </div>
-  </a>
+        <a class="dash-card card-ops"
+           href="https://daily-trigger-dashboard.vercel.app"
+           target="_blank" rel="noopener noreferrer"
+           data-name="daily trigger dashboard"
+           data-desc="monitor trigger execution and daily operational performance"
+           data-category="delivery trackers"
+           aria-label="Daily Trigger Dashboard — opens in a new tab">
+          <div class="card-body">
+            <div class="card-top">
+              <div class="card-icon" aria-hidden="true"><i class="fas fa-bolt"></i></div>
+              <span class="card-badge">Delivery Trackers</span>
+            </div>
+            <h3 class="card-title">Daily Trigger Dashboard</h3>
+            <p class="card-desc">Monitor trigger execution and daily operational performance.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
 
-  <a class="card" href="https://adityakumar-bikes.github.io/TVS-LDR-Dashboard/" target="_blank" rel="noopener"
-     style="--card-accent:linear-gradient(135deg,rgba(251,146,60,.06),transparent 60%);--icon-bg:#FFEDD5;--icon-border:#FED7AA;--tag-bg:#FFEDD5;--tag-fg:#7C2D12;--tag-border:#FED7AA">
-    <div class="card-icon">🔧</div>
-    <div class="card-body">
-      <div class="card-name">TVS LDR</div>
-      <div class="card-desc">Lead delivery report — TVS Motor</div>
-    </div>
-    <div class="card-footer">
-      <span class="card-tag" style="--tag-bg:#FFEDD5;--tag-fg:#7C2D12;--tag-border:#FED7AA">TVS · GitHub</span>
-      <span class="card-arrow">↗</span>
-    </div>
-  </a>
+      </div>
+    </section>
 
-  <a class="card" href="https://h-d-x-440-lead-performance-analytic.vercel.app" target="_blank" rel="noopener"
-     style="--card-accent:linear-gradient(135deg,rgba(236,72,153,.06),transparent 60%);--icon-bg:#FCE7F3;--icon-border:#F9A8D4;--tag-bg:#FCE7F3;--tag-fg:#831843;--tag-border:#F9A8D4">
-    <div class="card-icon">🦅</div>
-    <div class="card-body">
-      <div class="card-name">H-D X-440T</div>
-      <div class="card-desc">Lead performance — Harley-Davidson X440</div>
-    </div>
-    <div class="card-footer">
-      <span class="card-tag" style="--tag-bg:#FCE7F3;--tag-fg:#831843;--tag-border:#F9A8D4">H-D · Vercel</span>
-      <span class="card-arrow">↗</span>
-    </div>
-  </a>
+    <!-- ── OEM Performance ── -->
+    <section class="dash-section section-oem" id="sec-oem" aria-labelledby="oem-heading">
+      <div class="section-header">
+        <div class="section-icon" aria-hidden="true"><i class="fas fa-motorcycle"></i></div>
+        <div class="section-title-group">
+          <h2 id="oem-heading">OEM Performance</h2>
+          <p class="section-count" id="oem-count">6 dashboards</p>
+        </div>
+      </div>
+      <div class="card-grid" id="grid-oem">
 
-</div>
+        <!-- Royal Enfield -->
+        <a class="dash-card card-oem"
+           href="https://royal-enfield-performance-analytics.vercel.app"
+           target="_blank" rel="noopener noreferrer"
+           data-name="royal enfield performance analytics"
+           data-desc="business performance dashboard for royal enfield campaigns"
+           data-category="oem performance"
+           aria-label="Royal Enfield Performance Analytics — opens in a new tab">
+          <div class="card-logo-banner">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Royal_Enfield_logo.svg" alt="Royal Enfield logo">
+          </div>
+          <div class="card-body">
+            <span class="card-badge">OEM</span>
+            <h3 class="card-title">Royal Enfield Performance Analytics</h3>
+          </div>
+          <div class="card-footer">
+            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
 
-<!-- Enterprise Dashboards -->
-<p class="section-label">Enterprise Dashboards</p>
-<div class="grid">
+        <!-- Hero -->
+        <a class="dash-card card-oem"
+           href="https://kunalkaushal-stack.github.io/kunalkaushal-stack-hero-ldr-dashboard-/"
+           target="_blank" rel="noopener noreferrer"
+           data-name="hero ldr dashboard hero performance"
+           data-desc="performance analytics for hero motocorp campaigns"
+           data-category="oem performance"
+           aria-label="Hero LDR Dashboard — opens in a new tab">
+          <div class="card-logo-banner">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Hero_MotoCorp_Logo.svg" alt="Hero MotoCorp logo">
+          </div>
+          <div class="card-body">
+            <span class="card-badge">OEM</span>
+            <h3 class="card-title">Hero LDR Dashboard</h3>
+          </div>
+          <div class="card-footer">
+            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
 
-  <a class="card" href="https://daily-trigger-dashboard.vercel.app" target="_blank" rel="noopener"
-     style="--card-accent:linear-gradient(135deg,rgba(139,92,246,.07),transparent 60%);--icon-bg:#EDE9FE;--icon-border:#DDD6FE;--tag-bg:#EDE9FE;--tag-fg:#4C1D95;--tag-border:#DDD6FE">
-    <div class="card-icon">📊</div>
-    <div class="card-body">
-      <div class="card-name">Daily Trigger</div>
-      <div class="card-desc">Day-wise source-wise trigger leads — all brands</div>
-    </div>
-    <div class="card-footer">
-      <span class="card-tag">Multi-brand · Vercel</span>
-      <span class="card-arrow">↗</span>
-    </div>
-  </a>
+        <!-- TVS -->
+        <a class="dash-card card-oem"
+           href="https://adityakumar-bikes.github.io/TVS-LDR-Dashboard/"
+           target="_blank" rel="noopener noreferrer"
+           data-name="tvs ldr dashboard tvs lead disposition"
+           data-desc="analyze tvs lead disposition and conversion performance"
+           data-category="oem performance"
+           aria-label="TVS LDR Dashboard — opens in a new tab">
+          <div class="card-logo-banner">
+            <img src="https://upload.wikimedia.org/wikipedia/en/e/e9/TVS_Motor_logo.svg" alt="TVS logo">
+          </div>
+          <div class="card-body">
+            <span class="card-badge">OEM</span>
+            <h3 class="card-title">TVS LDR Dashboard</h3>
+          </div>
+          <div class="card-footer">
+            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
 
-  <a class="card" href="https://honda-motorcycles-and-scooters-anal.vercel.app" target="_blank" rel="noopener"
-     style="--card-accent:linear-gradient(135deg,rgba(14,165,233,.06),transparent 60%);--icon-bg:#E0F2FE;--icon-border:#BAE6FD;--tag-bg:#E0F2FE;--tag-fg:#0C4A6E;--tag-border:#BAE6FD">
-    <div class="card-icon">🛵</div>
-    <div class="card-body">
-      <div class="card-name">HMSI RW + BW</div>
-      <div class="card-desc">Honda RedWing &amp; BigWing analytics</div>
-    </div>
-    <div class="card-footer">
-      <span class="card-tag" style="--tag-bg:#E0F2FE;--tag-fg:#0C4A6E;--tag-border:#BAE6FD">HMSI · Vercel</span>
-      <span class="card-arrow">↗</span>
-    </div>
-  </a>
+        <!-- Honda / HMSI -->
+        <a class="dash-card card-oem"
+           href="https://honda-motorcycles-and-scooters-anal.vercel.app"
+           target="_blank" rel="noopener noreferrer"
+           data-name="hmsi rw bw honda motorcycles scooters analytics"
+           data-desc="performance analytics for honda motorcycles and scooters campaigns"
+           data-category="oem performance"
+           aria-label="HMSI RW + BW Analytics — opens in a new tab">
+          <div class="card-logo-banner">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Honda-logo.svg" alt="Honda logo">
+          </div>
+          <div class="card-body">
+            <span class="card-badge">OEM</span>
+            <h3 class="card-title">Honda Motorcycles &amp; Scooters Analytics</h3>
+          </div>
+          <div class="card-footer">
+            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
 
-  <a class="card" href="https://bd-contribution-site.vercel.app" target="_blank" rel="noopener"
-     style="--card-accent:linear-gradient(135deg,rgba(20,184,166,.06),transparent 60%);--icon-bg:#CCFBF1;--icon-border:#99F6E4;--tag-bg:#CCFBF1;--tag-fg:#065F46;--tag-border:#99F6E4">
-    <div class="card-icon">📈</div>
-    <div class="card-body">
-      <div class="card-name">BD Contribution</div>
-      <div class="card-desc">TVS, Hero, Ather, RE — BD contribution report</div>
-    </div>
-    <div class="card-footer">
-      <span class="card-tag" style="--tag-bg:#CCFBF1;--tag-fg:#065F46;--tag-border:#99F6E4">All Brands · Vercel</span>
-      <span class="card-arrow">↗</span>
-    </div>
-  </a>
+        <!-- Harley-Davidson -->
+        <a class="dash-card card-oem"
+           href="https://h-d-x-440-lead-performance-analytic.vercel.app"
+           target="_blank" rel="noopener noreferrer"
+           data-name="harley davidson x440 hd x440t lead performance analytics"
+           data-desc="lead generation and campaign analytics for harley-davidson x440"
+           data-category="oem performance"
+           aria-label="H-D X-440T Lead Performance — opens in a new tab">
+          <div class="card-logo-banner">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Harley-Davidson_logo.svg" alt="Harley-Davidson logo">
+          </div>
+          <div class="card-body">
+            <span class="card-badge">OEM</span>
+            <h3 class="card-title">Harley-Davidson X440 Lead Performance</h3>
+          </div>
+          <div class="card-footer">
+            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
 
-</div>
+        <!-- Ather -->
+        <a class="dash-card card-oem"
+           href="https://kunalkaushal-stack.github.io/ather-ldr-dashboard/ATHER_LDR/ATHER_LDR_Dashboard_v1.0.html"
+           target="_blank" rel="noopener noreferrer"
+           data-name="ather energy lead performance dashboard ather ldr"
+           data-desc="lead performance analytics for ather energy ev campaigns"
+           data-category="oem performance"
+           aria-label="Ather Energy Lead Performance — opens in a new tab">
+          <div class="card-logo-banner">
+            <div style="display:flex;width:100%;height:100%;align-items:center;justify-content:center">
+              <svg viewBox="0 0 160 60" xmlns="http://www.w3.org/2000/svg" height="48">
+                <text x="80" y="42" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="36" font-weight="900" fill="#1B2A47" letter-spacing="2">ather</text>
+              </svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <span class="card-badge">OEM</span>
+            <h3 class="card-title">Ather Energy Lead Performance</h3>
+          </div>
+          <div class="card-footer">
+            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
 
-<footer class="site-footer">Bikes · Enterprise · Lead Performance Analytics — BikeDekho</footer>
+      </div>
+    </section>
+
+    <!-- ── BD Contribution ── -->
+    <section class="dash-section section-biz" id="sec-biz" aria-labelledby="biz-heading">
+      <div class="section-header">
+        <div class="section-icon" aria-hidden="true"><i class="fas fa-chart-pie"></i></div>
+        <div class="section-title-group">
+          <h2 id="biz-heading">BD Contribution</h2>
+          <p class="section-count" id="biz-count">1 dashboard</p>
+        </div>
+      </div>
+      <div class="card-grid" id="grid-biz">
+
+        <a class="dash-card card-biz"
+           href="https://bd-contribution-site.vercel.app"
+           target="_blank" rel="noopener noreferrer"
+           data-name="bd contribution tvs hero ather royal enfield"
+           data-desc="bikedekho contribution report across tvs hero ather and royal enfield"
+           data-category="bd contribution"
+           aria-label="BD Contribution Dashboard — opens in a new tab">
+          <div class="card-body">
+            <div class="card-top">
+              <div class="card-icon" aria-hidden="true"><i class="fas fa-chart-pie"></i></div>
+              <span class="card-badge">BD Contribution</span>
+            </div>
+            <h3 class="card-title">BD Contribution Dashboard</h3>
+            <p class="card-desc">BikeDekho contribution report — TVS, Hero, Ather &amp; Royal Enfield.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="ft-primary">Bikes · Enterprise · Lead Performance Analytics</p>
+      <p class="ft-secondary" id="ft-date">Last Updated: Monday, 5 October 2026</p>
+    </div>
+  </footer>
+
+  <script>
+/* ─── 1. THEME MANAGEMENT ───────────────────────────────────── */
+const root     = document.documentElement;
+const themeBtn = document.getElementById('theme-btn');
+const themeIco = document.getElementById('theme-ico');
+
+function applyTheme(theme) {
+  root.setAttribute('data-theme', theme);
+  const isDark = theme === 'dark';
+  themeIco.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+  themeBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+  try { localStorage.setItem('bi-hub-theme', theme); } catch (_) {}
+}
+
+function resolveInitialTheme() {
+  try {
+    const stored = localStorage.getItem('bi-hub-theme');
+    if (stored === 'dark' || stored === 'light') return stored;
+  } catch (_) {}
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+applyTheme(resolveInitialTheme());
+themeBtn.addEventListener('click', () => {
+  applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ─── 2. DYNAMIC DATES ──────────────────────────────────────── */
+function formatDate(date) {
+  return date.toLocaleDateString('en-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+}
+const formatted = formatDate(new Date());
+document.getElementById('hero-date').textContent = formatted;
+document.getElementById('ft-date').textContent = 'Last Updated: ' + formatted;
+
+/* ─── 3. LIVE SEARCH ────────────────────────────────────────── */
+const searchInput = document.getElementById('search-input');
+const clearBtn    = document.getElementById('search-clear');
+const noResults   = document.getElementById('no-results');
+const secOps = document.getElementById('sec-ops');
+const secOem = document.getElementById('sec-oem');
+const secBiz = document.getElementById('sec-biz');
+const statTotal = document.getElementById('stat-total');
+const statOps   = document.getElementById('stat-ops');
+const statOem   = document.getElementById('stat-oem');
+const statBiz   = document.getElementById('stat-biz');
+const opsCount  = document.getElementById('ops-count');
+const oemCount  = document.getElementById('oem-count');
+const bizCount  = document.getElementById('biz-count');
+const allCards  = Array.from(document.querySelectorAll('.dash-card'));
+
+function pluralize(n) { return n + (n === 1 ? ' dashboard' : ' dashboards'); }
+
+function runSearch(query) {
+  const term = query.trim().toLowerCase();
+  term.length > 0 ? clearBtn.removeAttribute('hidden') : clearBtn.setAttribute('hidden', '');
+  let total = 0, opsN = 0, oemN = 0, bizN = 0;
+  allCards.forEach(card => {
+    const match = !term
+      || (card.getAttribute('data-name')     || '').includes(term)
+      || (card.getAttribute('data-desc')     || '').includes(term)
+      || (card.getAttribute('data-category') || '').includes(term);
+    card.classList.toggle('hidden', !match);
+    if (match) {
+      total++;
+      if (card.closest('#sec-ops')) opsN++;
+      if (card.closest('#sec-oem')) oemN++;
+      if (card.closest('#sec-biz')) bizN++;
+    }
+  });
+  statTotal.textContent = total;
+  statOps.textContent   = opsN;
+  statOem.textContent   = oemN;
+  statBiz.textContent   = bizN;
+  opsCount.textContent  = pluralize(opsN);
+  oemCount.textContent  = pluralize(oemN);
+  bizCount.textContent  = pluralize(bizN);
+  secOps.style.display  = opsN === 0 ? 'none' : '';
+  secOem.style.display  = oemN === 0 ? 'none' : '';
+  secBiz.style.display  = bizN === 0 ? 'none' : '';
+  noResults[total === 0 ? 'removeAttribute' : 'setAttribute']('hidden', '');
+}
+
+searchInput.addEventListener('input', e => runSearch(e.target.value));
+clearBtn.addEventListener('click', () => { searchInput.value = ''; searchInput.focus(); runSearch(''); });
+
+/* ─── 4. KEYBOARD ACCESSIBILITY ────────────────────────────── */
+allCards.forEach(card => {
+  card.addEventListener('keydown', e => {
+    if (e.key === ' ') {
+      e.preventDefault();
+      window.open(card.getAttribute('href'), '_blank', 'noopener,noreferrer');
+    }
+  });
+});
+  </script>
+</body>
+</html>
