@@ -1,0 +1,400 @@
+<!-- Layout: full-bleed hero header + 4-col responsive card grid -->
+<title>Dashboard Hub</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* ── Token system ───────────────────────────────────────────── */
+:root {
+  --violet:     #8B5CF6;
+  --violet-d:   #7C3AED;
+  --violet-900: #4C1D95;
+  --violet-50:  #F5F3FF;
+  --violet-100: #EDE9FE;
+  --violet-200: #DDD6FE;
+  --pink:       #EC4899;
+  --pink-100:   #FCE7F3;
+  --pink-50:    #FDF2F8;
+  --mint:       #14B8A6;
+  --mint-50:    #F0FDFA;
+  --sky:        #0EA5E9;
+  --sky-50:     #F0F9FF;
+  --peach:      #FB923C;
+  --bg:         #FFFFFF;
+  --bg-subtle:  #FAFAFA;
+  --fg:         #1e1b2e;
+  --fg-muted:   #7c6f9c;
+  --border:     var(--violet-100);
+  --shadow:     0 2px 10px rgba(76,29,149,.07),0 1px 3px rgba(76,29,149,.05),0 0 0 1px rgba(139,92,246,.07);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:         #0f0d1a;
+    --bg-subtle:  #1a1730;
+    --fg:         #e8e3f8;
+    --fg-muted:   #9d92c0;
+    --border:     rgba(139,92,246,.18);
+    --shadow:     0 2px 12px rgba(0,0,0,.35),0 0 0 1px rgba(139,92,246,.12);
+    --violet-50:  rgba(139,92,246,.08);
+    --violet-100: rgba(139,92,246,.12);
+    --violet-200: rgba(139,92,246,.22);
+    --pink-50:    rgba(236,72,153,.06);
+    --pink-100:   rgba(236,72,153,.12);
+    --mint-50:    rgba(20,184,166,.08);
+    --sky-50:     rgba(14,165,233,.08);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:         #0f0d1a;
+  --bg-subtle:  #1a1730;
+  --fg:         #e8e3f8;
+  --fg-muted:   #9d92c0;
+  --border:     rgba(139,92,246,.18);
+  --shadow:     0 2px 12px rgba(0,0,0,.35),0 0 0 1px rgba(139,92,246,.12);
+  --violet-50:  rgba(139,92,246,.08);
+  --violet-100: rgba(139,92,246,.12);
+  --violet-200: rgba(139,92,246,.22);
+  --pink-50:    rgba(236,72,153,.06);
+  --pink-100:   rgba(236,72,153,.12);
+  --mint-50:    rgba(20,184,166,.08);
+  --sky-50:     rgba(14,165,233,.08);
+  color-scheme: dark;
+}
+
+/* ── Reset & base ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  padding-inline: 24px;
+  padding-block: 0;
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Header ────────────────────────────────────────────────── */
+.site-header {
+  padding-block: 28px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--violet-d), var(--pink));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+}
+.brand-text h1 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  background: linear-gradient(135deg, var(--violet-d), var(--pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-wrap: balance;
+}
+.brand-text p {
+  font-size: 12px;
+  color: var(--fg-muted);
+  margin-top: 2px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: .03em;
+}
+.header-pill {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--violet-d);
+  background: var(--violet-50);
+  border: 1px solid var(--violet-200);
+  border-radius: 20px;
+  padding: 5px 14px;
+  white-space: nowrap;
+}
+
+/* ── Section heading ───────────────────────────────────────── */
+.section-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .10em;
+  color: var(--fg-muted);
+  padding-block: 24px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Grid ──────────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+/* ── Card ──────────────────────────────────────────────────── */
+.card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px 16px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform .12s, box-shadow .12s, border-color .12s;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 13px;
+  background: var(--card-accent, linear-gradient(135deg, var(--violet-50), transparent 60%));
+  opacity: 0;
+  transition: opacity .14s;
+  pointer-events: none;
+}
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--violet-200);
+  box-shadow: 0 6px 24px rgba(76,29,149,.11),0 1px 4px rgba(76,29,149,.07),0 0 0 1px rgba(139,92,246,.12);
+}
+.card:hover::before { opacity: 1; }
+.card:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 2px;
+}
+
+.card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  background: var(--icon-bg, var(--violet-50));
+  border: 1px solid var(--icon-border, var(--violet-200));
+}
+.card-body { flex: 1; min-width: 0; }
+.card-name {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: var(--fg);
+  margin-bottom: 3px;
+  text-wrap: balance;
+}
+.card-desc {
+  font-size: 11.5px;
+  color: var(--fg-muted);
+  line-height: 1.5;
+  font-family: 'DM Mono', monospace;
+}
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.card-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  padding: 2px 9px;
+  border-radius: 20px;
+  background: var(--tag-bg, var(--violet-50));
+  color: var(--tag-fg, var(--violet-900));
+  border: 1px solid var(--tag-border, var(--violet-200));
+}
+.card-arrow {
+  font-size: 14px;
+  color: var(--violet-d);
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ── Footer ────────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding-block: 18px 24px;
+  font-size: 12px;
+  color: var(--fg-muted);
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  body { padding-inline: 16px; }
+  .site-header { padding-block: 20px 16px; }
+  .grid { grid-template-columns: 1fr; gap: 10px; }
+  .brand-text h1 { font-size: 15px; }
+}
+</style>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="brand">
+    <div class="brand-logo">BD</div>
+    <div class="brand-text">
+      <h1>Bikes Enterprise · Dashboard Hub</h1>
+      <p>Lead Performance Analytics</p>
+    </div>
+  </div>
+  <span class="header-pill">All Dashboards</span>
+</header>
+
+<!-- LDR Dashboards -->
+<p class="section-label">Brand LDR Dashboards</p>
+<div class="grid">
+
+  <a class="card" href="https://royal-enfield-performance-analytics.vercel.app" target="_blank" rel="noopener"
+     style="--card-accent:linear-gradient(135deg,rgba(139,92,246,.06),transparent 60%);--icon-bg:#EDE9FE;--icon-border:#DDD6FE;--tag-bg:#EDE9FE;--tag-fg:#4C1D95;--tag-border:#DDD6FE">
+    <div class="card-icon">🏍️</div>
+    <div class="card-body">
+      <div class="card-name">Royal Enfield LDR</div>
+      <div class="card-desc">Lead delivery report — all RE models</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-tag">RE · Vercel</span>
+      <span class="card-arrow">↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="https://kunalkaushal-stack.github.io/ather-ldr-dashboard/ATHER_LDR/ATHER_LDR_Dashboard_v1.0.html" target="_blank" rel="noopener"
+     style="--card-accent:linear-gradient(135deg,rgba(20,184,166,.06),transparent 60%);--icon-bg:#CCFBF1;--icon-border:#99F6E4;--tag-bg:#CCFBF1;--tag-fg:#065F46;--tag-border:#99F6E4">
+    <div class="card-icon">⚡</div>
+    <div class="card-body">
+      <div class="card-name">Ather LDR</div>
+      <div class="card-desc">Lead delivery report — Ather Energy</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-tag" style="--tag-bg:#CCFBF1;--tag-fg:#065F46;--tag-border:#99F6E4">Ather · GitHub</span>
+      <span class="card-arrow">↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="https://kunalkaushal-stack.github.io/kunalkaushal-stack-hero-ldr-dashboard-/" target="_blank" rel="noopener"
+     style="--card-accent:linear-gradient(135deg,rgba(14,165,233,.06),transparent 60%);--icon-bg:#E0F2FE;--icon-border:#BAE6FD;--tag-bg:#E0F2FE;--tag-fg:#0C4A6E;--tag-border:#BAE6FD">
+    <div class="card-icon">🏆</div>
+    <div class="card-body">
+      <div class="card-name">Hero LDR</div>
+      <div class="card-desc">Lead delivery report — Hero MotoCorp</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-tag" style="--tag-bg:#E0F2FE;--tag-fg:#0C4A6E;--tag-border:#BAE6FD">Hero · GitHub</span>
+      <span class="card-arrow">↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="https://adityakumar-bikes.github.io/TVS-LDR-Dashboard/" target="_blank" rel="noopener"
+     style="--card-accent:linear-gradient(135deg,rgba(251,146,60,.06),transparent 60%);--icon-bg:#FFEDD5;--icon-border:#FED7AA;--tag-bg:#FFEDD5;--tag-fg:#7C2D12;--tag-border:#FED7AA">
+    <div class="card-icon">🔧</div>
+    <div class="card-body">
+      <div class="card-name">TVS LDR</div>
+      <div class="card-desc">Lead delivery report — TVS Motor</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-tag" style="--tag-bg:#FFEDD5;--tag-fg:#7C2D12;--tag-border:#FED7AA">TVS · GitHub</span>
+      <span class="card-arrow">↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="https://h-d-x-440-lead-performance-analytic.vercel.app" target="_blank" rel="noopener"
+     style="--card-accent:linear-gradient(135deg,rgba(236,72,153,.06),transparent 60%);--icon-bg:#FCE7F3;--icon-border:#F9A8D4;--tag-bg:#FCE7F3;--tag-fg:#831843;--tag-border:#F9A8D4">
+    <div class="card-icon">🦅</div>
+    <div class="card-body">
+      <div class="card-name">H-D X-440T</div>
+      <div class="card-desc">Lead performance — Harley-Davidson X440</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-tag" style="--tag-bg:#FCE7F3;--tag-fg:#831843;--tag-border:#F9A8D4">H-D · Vercel</span>
+      <span class="card-arrow">↗</span>
+    </div>
+  </a>
+
+</div>
+
+<!-- Enterprise Dashboards -->
+<p class="section-label">Enterprise Dashboards</p>
+<div class="grid">
+
+  <a class="card" href="https://daily-trigger-dashboard.vercel.app" target="_blank" rel="noopener"
+     style="--card-accent:linear-gradient(135deg,rgba(139,92,246,.07),transparent 60%);--icon-bg:#EDE9FE;--icon-border:#DDD6FE;--tag-bg:#EDE9FE;--tag-fg:#4C1D95;--tag-border:#DDD6FE">
+    <div class="card-icon">📊</div>
+    <div class="card-body">
+      <div class="card-name">Daily Trigger</div>
+      <div class="card-desc">Day-wise source-wise trigger leads — all brands</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-tag">Multi-brand · Vercel</span>
+      <span class="card-arrow">↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="https://honda-motorcycles-and-scooters-anal.vercel.app" target="_blank" rel="noopener"
+     style="--card-accent:linear-gradient(135deg,rgba(14,165,233,.06),transparent 60%);--icon-bg:#E0F2FE;--icon-border:#BAE6FD;--tag-bg:#E0F2FE;--tag-fg:#0C4A6E;--tag-border:#BAE6FD">
+    <div class="card-icon">🛵</div>
+    <div class="card-body">
+      <div class="card-name">HMSI RW + BW</div>
+      <div class="card-desc">Honda RedWing &amp; BigWing analytics</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-tag" style="--tag-bg:#E0F2FE;--tag-fg:#0C4A6E;--tag-border:#BAE6FD">HMSI · Vercel</span>
+      <span class="card-arrow">↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="https://bd-contribution-site.vercel.app" target="_blank" rel="noopener"
+     style="--card-accent:linear-gradient(135deg,rgba(20,184,166,.06),transparent 60%);--icon-bg:#CCFBF1;--icon-border:#99F6E4;--tag-bg:#CCFBF1;--tag-fg:#065F46;--tag-border:#99F6E4">
+    <div class="card-icon">📈</div>
+    <div class="card-body">
+      <div class="card-name">BD Contribution</div>
+      <div class="card-desc">TVS, Hero, Ather, RE — BD contribution report</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-tag" style="--tag-bg:#CCFBF1;--tag-fg:#065F46;--tag-border:#99F6E4">All Brands · Vercel</span>
+      <span class="card-arrow">↗</span>
+    </div>
+  </a>
+
+</div>
+
+<footer class="site-footer">Bikes · Enterprise · Lead Performance Analytics — BikeDekho</footer>
