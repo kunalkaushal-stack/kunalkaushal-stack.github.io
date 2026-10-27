@@ -218,6 +218,7 @@ img { display: block }
 .card-ext { font-size: 10px; color: var(--muted-2) }
 
 /* ─── OEM card (logo + compact body) ──────────────────────────── */
+.card-logo-banner.dark-bg { background: #111 !important; }
 .card-logo-banner {
   height: 76px; background: var(--logo-bg);
   border-bottom: 1px solid var(--border);
@@ -544,12 +545,8 @@ img { display: block }
            data-desc="lead performance analytics for ampere electric vehicles campaigns"
            data-category="oem performance"
            aria-label="Ampere Lead Performance — opens in a new tab">
-          <div class="card-logo-banner">
-            <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%">
-              <svg viewBox="0 0 180 48" xmlns="http://www.w3.org/2000/svg" height="36">
-                <text x="90" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#00A651" letter-spacing="1">ampere</text>
-              </svg>
-            </div>
+          <div class="card-logo-banner dark-bg">
+            <img src="ampere-logo.png" alt="Ampere">
           </div>
           <div class="card-body">
             <h3 class="card-title">Ampere Lead Performance</h3>
