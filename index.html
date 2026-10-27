@@ -3,318 +3,296 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BikeDekho Business Analytics</title>
+  <title>BikeDekho Analytics Hub</title>
   <meta name="description" content="BikeDekho Business Analytics — Dashboard Hub">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
-
   <style>
-/* ── Design Tokens: Light Theme ─────────────────────────────── */
+/* ── Design Tokens ────────────────────────────────────────────── */
 :root {
-  --bg:          #FFFFFF;
-  --surface:     #FFFFFF;
-  --accent:      #2563EB;
-  --accent-dark: #1D4ED8;
-  --accent-glow: rgba(37,99,235,0.14);
-  --accent-sub:  rgba(37,99,235,0.08);
-  --oem:         #7C3AED;
-  --oem-glow:    rgba(124,58,237,0.14);
-  --oem-sub:     rgba(124,58,237,0.08);
-  --biz:         #059669;
-  --biz-glow:    rgba(5,150,105,0.14);
-  --biz-sub:     rgba(5,150,105,0.08);
-  --ink:         #111827;
-  --ink-2:       #374151;
-  --muted:       #6B7280;
-  --rule:        #DDE2EF;
-  --sh-sm: 0 1px 3px rgba(13,21,38,.07),0 1px 2px rgba(13,21,38,.04);
-  --sh-md: 0 4px 16px rgba(13,21,38,.10),0 1px 4px rgba(13,21,38,.06);
-  --sh-lg: 0 8px 32px rgba(13,21,38,.13),0 2px 8px rgba(13,21,38,.07);
-  --radius:    14px;
-  --radius-sm: 8px;
+  --bg:        #F0F4F8;
+  --surface:   #FFFFFF;
+  --surface-2: #F7F9FC;
+  --border:    #E2E8F0;
+  --accent:    #2563EB;
+  --accent-g:  rgba(37,99,235,0.12);
+  --accent-s:  rgba(37,99,235,0.08);
+  --oem:       #7C3AED;
+  --oem-g:     rgba(124,58,237,0.12);
+  --oem-s:     rgba(124,58,237,0.08);
+  --biz:       #059669;
+  --biz-g:     rgba(5,150,105,0.12);
+  --biz-s:     rgba(5,150,105,0.08);
+  --ink:       #0F172A;
+  --ink-2:     #475569;
+  --muted:     #94A3B8;
+  --radius:    10px;
+  --radius-sm: 6px;
+  --sh-sm: 0 1px 3px rgba(15,23,42,.06), 0 1px 2px rgba(15,23,42,.04);
+  --sh-md: 0 4px 16px rgba(15,23,42,.10), 0 1px 4px rgba(15,23,42,.06);
+  --sh-lg: 0 8px 28px rgba(15,23,42,.14), 0 2px 8px rgba(15,23,42,.07);
 }
 
+[data-theme="dark"], :root:not([data-theme="light"]) {
+  --bg:        #080F1C;
+  --surface:   #0F1A2E;
+  --surface-2: #141E33;
+  --border:    #1A2B42;
+  --accent:    #3B82F6;
+  --accent-g:  rgba(59,130,246,0.18);
+  --accent-s:  rgba(59,130,246,0.10);
+  --oem:       #A78BFA;
+  --oem-g:     rgba(167,139,250,0.18);
+  --oem-s:     rgba(167,139,250,0.10);
+  --biz:       #10B981;
+  --biz-g:     rgba(16,185,129,0.18);
+  --biz-s:     rgba(16,185,129,0.10);
+  --ink:       #F1F5F9;
+  --ink-2:     #CBD5E1;
+  --muted:     #64748B;
+  --sh-sm: 0 1px 3px rgba(0,0,0,.30), 0 1px 2px rgba(0,0,0,.20);
+  --sh-md: 0 4px 16px rgba(0,0,0,.40), 0 1px 4px rgba(0,0,0,.25);
+  --sh-lg: 0 8px 28px rgba(0,0,0,.55), 0 2px 8px rgba(0,0,0,.30);
+}
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg:          #08101E;
-    --surface:     #101929;
-    --accent:      #3B82F6;
-    --accent-dark: #60A5FA;
-    --accent-glow: rgba(59,130,246,0.18);
-    --accent-sub:  rgba(59,130,246,0.10);
-    --oem:         #A78BFA;
-    --oem-glow:    rgba(167,139,250,0.18);
-    --oem-sub:     rgba(167,139,250,0.10);
-    --biz:         #10B981;
-    --biz-glow:    rgba(16,185,129,0.18);
-    --biz-sub:     rgba(16,185,129,0.10);
-    --ink:         #F3F4F6;
-    --ink-2:       #D1D5DB;
-    --muted:       #9CA3AF;
-    --rule:        #1E2D47;
-    --sh-sm: 0 1px 3px rgba(0,0,0,.30),0 1px 2px rgba(0,0,0,.20);
-    --sh-md: 0 4px 16px rgba(0,0,0,.40),0 1px 4px rgba(0,0,0,.25);
-    --sh-lg: 0 8px 32px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.30);
+    --bg:#080F1C;--surface:#0F1A2E;--surface-2:#141E33;--border:#1A2B42;
+    --accent:#3B82F6;--accent-g:rgba(59,130,246,.18);--accent-s:rgba(59,130,246,.10);
+    --oem:#A78BFA;--oem-g:rgba(167,139,250,.18);--oem-s:rgba(167,139,250,.10);
+    --biz:#10B981;--biz-g:rgba(16,185,129,.18);--biz-s:rgba(16,185,129,.10);
+    --ink:#F1F5F9;--ink-2:#CBD5E1;--muted:#64748B;
+    --sh-sm:0 1px 3px rgba(0,0,0,.30),0 1px 2px rgba(0,0,0,.20);
+    --sh-md:0 4px 16px rgba(0,0,0,.40),0 1px 4px rgba(0,0,0,.25);
+    --sh-lg:0 8px 28px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.30);
   }
 }
 
-[data-theme="dark"] {
-  --bg:          #08101E;
-  --surface:     #101929;
-  --accent:      #3B82F6;
-  --accent-dark: #60A5FA;
-  --accent-glow: rgba(59,130,246,0.18);
-  --accent-sub:  rgba(59,130,246,0.10);
-  --oem:         #A78BFA;
-  --oem-glow:    rgba(167,139,250,0.18);
-  --oem-sub:     rgba(167,139,250,0.10);
-  --biz:         #10B981;
-  --biz-glow:    rgba(16,185,129,0.18);
-  --biz-sub:     rgba(16,185,129,0.10);
-  --ink:         #F3F4F6;
-  --ink-2:       #D1D5DB;
-  --muted:       #9CA3AF;
-  --rule:        #1E2D47;
-  --sh-sm: 0 1px 3px rgba(0,0,0,.30),0 1px 2px rgba(0,0,0,.20);
-  --sh-md: 0 4px 16px rgba(0,0,0,.40),0 1px 4px rgba(0,0,0,.25);
-  --sh-lg: 0 8px 32px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.30);
-}
-
-[data-theme="light"] {
-  --bg:          #FFFFFF;
-  --surface:     #FFFFFF;
-  --accent:      #2563EB;
-  --accent-dark: #1D4ED8;
-  --accent-glow: rgba(37,99,235,0.14);
-  --accent-sub:  rgba(37,99,235,0.08);
-  --oem:         #7C3AED;
-  --oem-glow:    rgba(124,58,237,0.14);
-  --oem-sub:     rgba(124,58,237,0.08);
-  --biz:         #059669;
-  --biz-glow:    rgba(5,150,105,0.14);
-  --biz-sub:     rgba(5,150,105,0.08);
-  --ink:         #111827;
-  --ink-2:       #374151;
-  --muted:       #6B7280;
-  --rule:        #DDE2EF;
-  --sh-sm: 0 1px 3px rgba(13,21,38,.07),0 1px 2px rgba(13,21,38,.04);
-  --sh-md: 0 4px 16px rgba(13,21,38,.10),0 1px 4px rgba(13,21,38,.06);
-  --sh-lg: 0 8px 32px rgba(13,21,38,.13),0 2px 8px rgba(13,21,38,.07);
-}
-
-/* ── Reset ──────────────────────────────────────────────────── */
+/* ── Reset ────────────────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;line-height:1.5;-webkit-font-smoothing:antialiased}
 a{text-decoration:none;color:inherit}
 
-/* ── Accent bar ─────────────────────────────────────────────── */
-.accent-bar{height:4px;background:linear-gradient(90deg,#2563EB 0%,#7C3AED 55%,#0EA5E9 100%);position:sticky;top:0;z-index:110}
+/* ── Top gradient stripe ─────────────────────────────────────── */
+.accent-bar{height:3px;background:linear-gradient(90deg,#2563EB 0%,#7C3AED 55%,#0EA5E9 100%);position:sticky;top:0;z-index:200}
 
-/* ── Sticky header ──────────────────────────────────────────── */
-.site-header{position:sticky;top:4px;z-index:100;background:var(--surface);border-bottom:1px solid var(--rule);box-shadow:var(--sh-sm)}
-.header-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:62px;display:flex;align-items:center;gap:14px}
-.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.logo-icon{width:34px;height:34px;border-radius:9px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;box-shadow:0 2px 10px var(--accent-glow)}
-.logo-text{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-0.02em;white-space:nowrap}
-.theme-toggle{width:36px;height:36px;border:1.5px solid var(--rule);border-radius:var(--radius-sm);background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:color .2s,border-color .2s,background .2s}
-.theme-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-sub)}
+/* ── Header ──────────────────────────────────────────────────── */
+.site-header{position:sticky;top:3px;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--sh-sm)}
+.header-inner{max-width:1440px;margin:0 auto;padding:0 20px;height:54px;display:flex;align-items:center;gap:12px}
+
+.logo{display:flex;align-items:center;gap:9px;flex-shrink:0;margin-right:4px}
+.logo-icon{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#2563EB,#7C3AED);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px}
+.logo-name{font-size:13.5px;font-weight:700;color:var(--ink);letter-spacing:-0.02em;white-space:nowrap}
+.logo-name span{color:var(--accent)}
+
+/* Section nav pills */
+.section-nav{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.nav-pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--ink-2);padding:5px 11px;border-radius:20px;border:1px solid transparent;transition:all .18s ease;white-space:nowrap;cursor:pointer;text-decoration:none}
+.nav-pill:hover{background:var(--surface-2);border-color:var(--border);color:var(--ink)}
+.nav-pill .pill-count{font-size:10px;font-weight:700;background:var(--accent-s);color:var(--accent);padding:1px 5px;border-radius:8px;letter-spacing:0}
+.nav-pill.oem-pill .pill-count{background:var(--oem-s);color:var(--oem)}
+.nav-pill.biz-pill .pill-count{background:var(--biz-s);color:var(--biz)}
+
+/* Search */
+.search-wrap{position:relative;flex:1;max-width:380px;min-width:0;margin-left:auto}
+.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px;pointer-events:none}
+#search-input{width:100%;padding:7px 34px 7px 31px;font-family:inherit;font-size:13px;color:var(--ink);background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);outline:none;transition:border-color .18s,box-shadow .18s}
+#search-input::placeholder{color:var(--muted)}
+#search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-g)}
+.search-clear{position:absolute;right:7px;top:50%;transform:translateY(-50%);width:22px;height:22px;border:none;background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;border-radius:4px;transition:color .18s}
+.search-clear:hover{color:var(--ink)}
+
+.theme-toggle{width:32px;height:32px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;transition:all .18s}
+.theme-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-s)}
 .theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-/* ── Search ─────────────────────────────────────────────────── */
-.search-wrap{position:relative;flex:1;max-width:480px;min-width:0}
-.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none}
-#search-input{width:100%;padding:9px 42px 9px 36px;font-family:inherit;font-size:13.5px;color:var(--ink);background:var(--bg);border:1.5px solid var(--rule);border-radius:var(--radius-sm);box-shadow:var(--sh-sm);outline:none;transition:border-color .2s,box-shadow .2s}
-#search-input::placeholder{color:var(--muted)}
-#search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow),var(--sh-sm)}
-.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:24px;height:24px;border:none;background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;border-radius:4px;transition:color .2s}
-.search-clear:hover{color:var(--ink)}
-.search-clear:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* ── Stats band ──────────────────────────────────────────────── */
+.stats-band{background:var(--surface-2);border-bottom:1px solid var(--border);padding:0 20px}
+.stats-inner{max-width:1440px;margin:0 auto;height:38px;display:flex;align-items:center;gap:0;overflow:hidden}
+.stat-item{display:flex;align-items:center;gap:5px;padding:0 16px;border-right:1px solid var(--border);font-size:12px;color:var(--ink-2);flex-shrink:0}
+.stat-item:first-child{padding-left:0}
+.stat-item:last-child{border-right:none}
+.si-num{font-size:13px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+.si-num.oem-c{color:var(--oem)}
+.si-num.biz-c{color:var(--biz)}
+.stats-date{margin-left:auto;font-size:11.5px;color:var(--muted);padding-left:16px;white-space:nowrap}
 
-/* ── Hero ───────────────────────────────────────────────────── */
-.hero{padding:60px 24px 52px;text-align:center;animation:fadeUp .55s ease both}
-.hero-brand{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:20px}
-.hero-brand-text{font-size:1.6rem;font-weight:800;color:#2C3A47;letter-spacing:-0.5px}
-[data-theme="dark"] .hero-brand-text,[data-theme="dark"] .hero-brand-text{color:#f1f5f9}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero-brand-text{color:#f1f5f9}}
-.hero-pill{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.11em;text-transform:uppercase;color:var(--accent);background:var(--accent-sub);border:1px solid var(--accent-glow);padding:5px 14px;border-radius:100px;margin-bottom:22px}
-.hero h1{font-size:clamp(1.9rem,4vw + 0.5rem,3rem);font-weight:800;color:var(--ink);letter-spacing:-0.035em;line-height:1.13;text-wrap:balance;margin-bottom:14px}
-.hero-date{font-size:12.5px;color:var(--muted);margin-bottom:0;font-variant-numeric:tabular-nums;opacity:.8}
+/* ── Main ────────────────────────────────────────────────────── */
+.main-content{max-width:1440px;margin:0 auto;padding:20px 20px 56px}
 
-/* ── Stats ──────────────────────────────────────────────────── */
-.stats-row{max-width:1200px;margin:0 auto 52px;padding:0 24px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:fadeUp .55s .12s ease both}
-.stat-tile{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius);padding:18px 30px;box-shadow:var(--sh-sm);text-align:center;flex:1;min-width:130px;max-width:195px;transition:transform .22s ease,box-shadow .22s ease}
-.stat-tile:hover{transform:translateY(-2px);box-shadow:var(--sh-md)}
-.stat-num{display:block;font-size:30px;font-weight:800;color:var(--accent);letter-spacing:-0.03em;line-height:1;font-variant-numeric:tabular-nums;margin-bottom:5px}
-.stat-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted)}
+/* ── No results ──────────────────────────────────────────────── */
+.no-results{text-align:center;padding:48px 24px}
+.nr-icon{font-size:36px;color:var(--border);margin-bottom:12px}
+.no-results h3{font-size:15px;font-weight:600;color:var(--ink-2);margin-bottom:5px}
+.no-results p{font-size:13px;color:var(--muted)}
 
-/* ── Main ───────────────────────────────────────────────────── */
-.main-content{max-width:1200px;margin:0 auto;padding:0 24px 72px}
+/* ── Sections ────────────────────────────────────────────────── */
+.dash-section{margin-bottom:28px;animation:fadeUp .4s ease both}
+.dash-section+.dash-section{animation-delay:.08s}
 
-/* ── No results ─────────────────────────────────────────────── */
-.no-results{text-align:center;padding:64px 24px;animation:fadeUp .3s ease both}
-.nr-icon{font-size:44px;color:var(--rule);margin-bottom:16px}
-.no-results h3{font-size:17px;font-weight:600;color:var(--ink-2);margin-bottom:6px}
-.no-results p{font-size:14px;color:var(--muted)}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.sec-accent{width:3px;height:16px;border-radius:3px;flex-shrink:0;background:var(--c-sec)}
+.sec-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:var(--ink-2)}
+.sec-count{font-size:11px;color:var(--muted);margin-left:2px}
+.sec-icon{font-size:12px;color:var(--c-sec);margin-left:auto;opacity:.7}
 
-/* ── Sections ───────────────────────────────────────────────── */
-.dash-section{margin-bottom:52px;animation:fadeUp .55s .2s ease both}
-.dash-section + .dash-section{animation-delay:.28s}
-.section-header{display:flex;align-items:center;gap:12px;margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--rule)}
-.section-icon{width:32px;height:32px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.section-ops .section-icon{background:var(--accent-sub);color:var(--accent)}
-.section-oem .section-icon{background:var(--oem-sub);color:var(--oem)}
-.section-biz .section-icon{background:var(--biz-sub);color:var(--biz)}
-.section-title-group h2{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-0.01em}
-.section-count{font-size:12px;color:var(--muted);margin-top:2px}
+.section-ops{--c-sec:var(--accent)}
+.section-oem{--c-sec:var(--oem)}
+.section-biz{--c-sec:var(--biz)}
+.section-mgr{--c-sec:var(--biz)}
 
-/* ── Card grid ──────────────────────────────────────────────── */
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+/* ── Ops / Biz card grid (wider cards, fewer cols) ───────────── */
+.card-grid-wide{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
 
-/* ── Dashboard card ─────────────────────────────────────────── */
-.dash-card{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1.5px solid var(--rule);border-radius:var(--radius);box-shadow:var(--sh-sm);overflow:hidden;cursor:pointer;outline:none;text-decoration:none;color:inherit;transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s ease,border-color .22s ease}
-.dash-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c-accent);transition:width .2s ease;z-index:1}
-.dash-card:hover{transform:translateY(-5px);box-shadow:var(--sh-lg),0 0 0 1.5px var(--c-accent);border-color:transparent}
-.dash-card:hover::before{width:4px}
-.dash-card:focus-visible{box-shadow:0 0 0 3px var(--c-glow),var(--sh-md);border-color:var(--c-accent);outline:none}
-.card-ops{--c-accent:var(--accent);--c-glow:var(--accent-glow);--c-sub:var(--accent-sub)}
-.card-oem{--c-accent:var(--oem);--c-glow:var(--oem-glow);--c-sub:var(--oem-sub)}
-.card-biz{--c-accent:var(--biz);--c-glow:var(--biz-glow);--c-sub:var(--biz-sub)}
-.card-body{padding:20px 20px 14px 24px;flex:1}
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:14px}
-.card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;background:var(--c-sub);color:var(--c-accent);flex-shrink:0;transition:transform .22s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
-.dash-card:hover .card-icon{transform:scale(1.1)}
-.card-badge{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-accent);background:var(--c-sub);padding:3px 9px;border-radius:100px;white-space:nowrap;margin-top:4px}
-.card-title{font-size:14.5px;font-weight:700;color:var(--ink);letter-spacing:-0.01em;line-height:1.3;margin-bottom:8px;text-wrap:balance}
-.card-desc{font-size:13px;color:var(--muted);line-height:1.55}
-.card-footer{padding:11px 20px 14px 24px;border-top:1px solid var(--rule);display:flex;align-items:center}
-.card-cta{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--c-accent);letter-spacing:-0.005em;transition:gap .2s ease}
-.card-cta i{font-size:11px;transition:transform .2s ease}
-.dash-card:hover .card-cta{gap:9px}
-.dash-card:hover .card-cta i{transform:translateX(2px)}
+/* ── OEM card grid (4 cols) ──────────────────────────────────── */
+.card-grid-oem{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+
+/* ── Cards (shared) ──────────────────────────────────────────── */
+.dash-card{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;color:inherit;transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s ease,border-color .18s ease}
+.dash-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--c-accent);transform:scaleX(0);transform-origin:left;transition:transform .22s ease}
+.dash-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);border-color:var(--c-accent)}
+.dash-card:hover::after{transform:scaleX(1)}
+.dash-card:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px}
 .dash-card.hidden{display:none}
 
-/* ── OEM logo banner ────────────────────────────────────────── */
-.card-logo-banner{width:100%;height:116px;background:#ffffff;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:center;padding:14px 32px;overflow:hidden;flex-shrink:0}
-.card-logo-banner img{max-width:100%;max-height:84px;width:auto;height:auto;object-fit:contain;display:block}
-.card-logo-banner + .card-body{padding:16px 20px 12px 24px}
-.card-logo-banner + .card-body .card-badge{display:inline-flex;margin-bottom:10px;margin-top:0}
-.card-logo-banner + .card-body .card-title{margin-bottom:6px}
+.card-ops{--c-accent:var(--accent);--c-glow:var(--accent-g);--c-sub:var(--accent-s)}
+.card-oem{--c-accent:var(--oem);--c-glow:var(--oem-g);--c-sub:var(--oem-s)}
+.card-biz{--c-accent:var(--biz);--c-glow:var(--biz-g);--c-sub:var(--biz-s)}
 
-/* ── Footer ─────────────────────────────────────────────────── */
-.site-footer{background:var(--surface);border-top:1px solid var(--rule);padding:24px}
-.footer-inner{max-width:1200px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:5px}
-.ft-primary{font-size:13px;font-weight:500;color:var(--ink-2)}
-.ft-secondary{font-size:12px;color:var(--muted)}
+/* ── Non-OEM card body ───────────────────────────────────────── */
+.card-body{padding:14px 16px 10px;flex:1}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px}
+.card-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;background:var(--c-sub);color:var(--c-accent);flex-shrink:0;transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+.dash-card:hover .card-icon{transform:scale(1.1)}
+.card-badge{font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--c-accent);background:var(--c-sub);padding:2px 8px;border-radius:100px;white-space:nowrap;margin-top:3px}
+.card-title{font-size:13.5px;font-weight:700;color:var(--ink);letter-spacing:-0.01em;line-height:1.3;margin-bottom:5px}
+.card-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.card-footer{padding:8px 16px 10px;border-top:1px solid var(--border);display:flex;align-items:center}
+.card-cta{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--c-accent);transition:gap .18s}
+.card-cta i{font-size:10px;transition:transform .18s}
+.dash-card:hover .card-cta{gap:8px}
+.dash-card:hover .card-cta i{transform:translateX(2px)}
 
-/* ── Animations ─────────────────────────────────────────────── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* ── OEM logo banner (compact) ───────────────────────────────── */
+.card-logo-banner{width:100%;height:80px;background:#ffffff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;padding:10px 20px;flex-shrink:0;overflow:hidden}
+.card-logo-banner img{max-width:100%;max-height:56px;width:auto;height:auto;object-fit:contain;display:block}
+.card-logo-banner+.card-body{padding:10px 14px 8px}
+.card-logo-banner+.card-body .card-badge{display:inline-flex;margin-bottom:6px}
+.card-logo-banner+.card-body .card-title{font-size:12.5px;margin-bottom:0}
+.card-logo-banner+.card-footer{padding:7px 14px 9px}
 
-/* ── Responsive ─────────────────────────────────────────────── */
+/* ── Footer ──────────────────────────────────────────────────── */
+.site-footer{background:var(--surface);border-top:1px solid var(--border);padding:16px 20px}
+.footer-inner{max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.ft-logo{display:flex;align-items:center;gap:7px}
+.ft-logo-icon{width:22px;height:22px;border-radius:5px;background:linear-gradient(135deg,#2563EB,#7C3AED);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px}
+.ft-brand{font-size:12px;font-weight:600;color:var(--ink-2)}
+.ft-brand span{color:var(--accent)}
+.ft-meta{font-size:11.5px;color:var(--muted)}
+
+/* ── Animation ───────────────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media(max-width:1024px){
+  .card-grid-oem{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+}
 @media(max-width:768px){
-  .hero{padding:44px 20px 36px}
-  .hero h1{font-size:1.8rem}
-  .stats-row{margin-bottom:36px}
-  .stat-tile{min-width:100px;padding:14px 16px}
-  .stat-num{font-size:26px}
-  .card-grid{grid-template-columns:1fr;gap:14px}
-  .main-content{padding-bottom:48px}
-  .card-logo-banner{height:100px;padding:10px 24px}
-  .card-logo-banner img{max-height:72px}
+  .section-nav{display:none}
+  .card-grid-wide{grid-template-columns:1fr}
+  .card-grid-oem{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+  .stat-item:nth-child(n+4){display:none}
+  .main-content{padding:16px 16px 40px}
 }
-@media(max-width:540px){.logo-text{display:none}}
-@media(max-width:480px){
-  .header-inner{padding:0 12px;gap:10px}
-  .hero{padding:36px 16px 32px}
-  .stats-row{padding:0 16px}
-  .stat-tile{max-width:none;flex:1 1 calc(50% - 7px)}
-  .main-content{padding:0 16px 48px}
-  .site-footer{padding:20px 16px}
-  .card-logo-banner{height:90px;padding:8px 20px}
-  .card-logo-banner img{max-height:66px}
+@media(max-width:540px){
+  .logo-name{display:none}
+  .stats-inner{gap:0}
+  .stat-item{padding:0 10px}
+  .header-inner{padding:0 12px}
+  .stats-band{padding:0 12px}
+  .main-content{padding:12px 12px 40px}
+  .card-grid-oem{grid-template-columns:repeat(2,1fr)}
 }
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-  html{scroll-behavior:auto}
-}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}html{scroll-behavior:auto}}
   </style>
 </head>
 <body>
 
-  <!-- Gradient accent stripe -->
   <div class="accent-bar" role="presentation" aria-hidden="true"></div>
 
-  <!-- STICKY HEADER -->
+  <!-- HEADER -->
   <header class="site-header">
     <div class="header-inner">
-      <div class="logo" aria-label="Analytics Hub home">
-        <div class="logo-icon" aria-hidden="true">
-          <i class="fas fa-layer-group"></i>
-        </div>
-        <span class="logo-text">Analytics Hub</span>
+
+      <div class="logo" aria-label="BikeDekho Analytics Hub">
+        <div class="logo-icon" aria-hidden="true"><i class="fas fa-chart-bar"></i></div>
+        <span class="logo-name">Bike<span>Dekho</span> Analytics</span>
       </div>
+
+      <nav class="section-nav" aria-label="Jump to section">
+        <a href="#sec-mgr" class="nav-pill biz-pill">
+          <i class="fas fa-briefcase"></i> Biz Manager
+          <span class="pill-count" id="nav-mgr-count">1</span>
+        </a>
+        <a href="#sec-ops" class="nav-pill">
+          <i class="fas fa-gears"></i> Delivery
+          <span class="pill-count" id="nav-ops-count">2</span>
+        </a>
+        <a href="#sec-oem" class="nav-pill oem-pill">
+          <i class="fas fa-motorcycle"></i> OEM
+          <span class="pill-count" id="nav-oem-count">9</span>
+        </a>
+        <a href="#sec-biz" class="nav-pill biz-pill">
+          <i class="fas fa-chart-pie"></i> BD
+          <span class="pill-count" id="nav-biz-count">1</span>
+        </a>
+      </nav>
 
       <div class="search-wrap" role="search">
         <i class="fas fa-magnifying-glass search-icon" aria-hidden="true"></i>
-        <input type="search" id="search-input" placeholder="Search dashboards…" aria-label="Search dashboards by name, description or category" autocomplete="off" spellcheck="false">
+        <input type="search" id="search-input" placeholder="Search dashboards…" aria-label="Search dashboards" autocomplete="off" spellcheck="false">
         <button class="search-clear" id="search-clear" aria-label="Clear search" hidden>
           <i class="fas fa-xmark" aria-hidden="true"></i>
         </button>
       </div>
 
-      <button class="theme-toggle" id="theme-btn" aria-label="Switch to light mode" title="Toggle light / dark theme">
+      <button class="theme-toggle" id="theme-btn" aria-label="Switch to light mode" title="Toggle theme">
         <i class="fas fa-sun" id="theme-ico" aria-hidden="true"></i>
       </button>
+
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-brand" aria-hidden="true">
-      <svg viewBox="0 0 200 196" xmlns="http://www.w3.org/2000/svg" width="108" height="106">
-        <circle cx="100" cy="120" r="54" fill="none" stroke="#E53935" stroke-width="28"/>
-        <rect x="4" y="56" width="192" height="28" rx="14" fill="#E53935"/>
-      </svg>
-      <span class="hero-brand-text">BikeDekho</span>
-    </div>
-
-    <p class="hero-pill" aria-hidden="true">
-      <i class="fas fa-chart-bar"></i>
-      Business Intelligence
-    </p>
-
-    <h1 id="hero-title">BikeDekho Business Analytics</h1>
-    <p class="hero-date" id="hero-date" aria-label="Today's date">Monday, 5 October 2026</p>
-  </section>
-
-  <!-- STATISTICS -->
-  <div class="stats-row" aria-label="Dashboard counts">
-    <div class="stat-tile">
-      <span class="stat-num" id="stat-total">13</span>
-      <span class="stat-lbl">Total Dashboards</span>
-    </div>
-    <div class="stat-tile">
-      <span class="stat-num" id="stat-mgr">1</span>
-      <span class="stat-lbl">Business Manager</span>
-    </div>
-    <div class="stat-tile">
-      <span class="stat-num" id="stat-ops">2</span>
-      <span class="stat-lbl">Delivery Trackers</span>
-    </div>
-    <div class="stat-tile">
-      <span class="stat-num" id="stat-oem">9</span>
-      <span class="stat-lbl">OEM Dashboards</span>
-    </div>
-    <div class="stat-tile">
-      <span class="stat-num" id="stat-biz">1</span>
-      <span class="stat-lbl">BD Contribution</span>
+  <!-- STATS BAND -->
+  <div class="stats-band" aria-label="Dashboard counts">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <span class="si-num" id="stat-total">13</span>
+        <span>Total Dashboards</span>
+      </div>
+      <div class="stat-item">
+        <span class="si-num biz-c" id="stat-mgr">1</span>
+        <span>Business Manager</span>
+      </div>
+      <div class="stat-item">
+        <span class="si-num" id="stat-ops">2</span>
+        <span>Delivery Trackers</span>
+      </div>
+      <div class="stat-item">
+        <span class="si-num oem-c" id="stat-oem">9</span>
+        <span>OEM</span>
+      </div>
+      <div class="stat-item">
+        <span class="si-num biz-c" id="stat-biz">1</span>
+        <span>BD Contribution</span>
+      </div>
+      <span class="stats-date" id="hero-date" aria-label="Today's date">Monday, 27 October 2026</span>
     </div>
   </div>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main class="main-content" id="main-content">
 
     <div class="no-results" id="no-results" role="alert" aria-live="polite" aria-atomic="true" hidden>
@@ -323,16 +301,15 @@ a{text-decoration:none;color:inherit}
       <p>Try a different search term.</p>
     </div>
 
-    <!-- ── Business Manager ── -->
-    <section class="dash-section section-biz" id="sec-mgr" aria-labelledby="mgr-heading">
+    <!-- Business Manager -->
+    <section class="dash-section section-mgr" id="sec-mgr" aria-labelledby="mgr-heading">
       <div class="section-header">
-        <div class="section-icon" aria-hidden="true"><i class="fas fa-briefcase"></i></div>
-        <div class="section-title-group">
-          <h2 id="mgr-heading">Business Manager</h2>
-          <p class="section-count" id="mgr-count">1 dashboard</p>
-        </div>
+        <div class="sec-accent"></div>
+        <span class="sec-label" id="mgr-heading">Business Manager</span>
+        <span class="sec-count" id="mgr-count">1 dashboard</span>
+        <i class="fas fa-briefcase sec-icon" aria-hidden="true"></i>
       </div>
-      <div class="card-grid" id="grid-mgr">
+      <div class="card-grid-wide" id="grid-mgr">
 
         <a class="dash-card card-biz"
            href="https://adityakumar-bikes.github.io/leadbu-manager/"
@@ -357,16 +334,15 @@ a{text-decoration:none;color:inherit}
       </div>
     </section>
 
-    <!-- ── Delivery Trackers ── -->
+    <!-- Delivery Trackers -->
     <section class="dash-section section-ops" id="sec-ops" aria-labelledby="ops-heading">
       <div class="section-header">
-        <div class="section-icon" aria-hidden="true"><i class="fas fa-gears"></i></div>
-        <div class="section-title-group">
-          <h2 id="ops-heading">Delivery Trackers</h2>
-          <p class="section-count" id="ops-count">2 dashboards</p>
-        </div>
+        <div class="sec-accent"></div>
+        <span class="sec-label" id="ops-heading">Delivery Trackers</span>
+        <span class="sec-count" id="ops-count">2 dashboards</span>
+        <i class="fas fa-gears sec-icon" aria-hidden="true"></i>
       </div>
-      <div class="card-grid" id="grid-ops">
+      <div class="card-grid-wide" id="grid-ops">
 
         <a class="dash-card card-ops"
            href="https://daily-trigger-dashboard.vercel.app"
@@ -411,18 +387,16 @@ a{text-decoration:none;color:inherit}
       </div>
     </section>
 
-    <!-- ── OEM Performance ── -->
+    <!-- OEM Performance -->
     <section class="dash-section section-oem" id="sec-oem" aria-labelledby="oem-heading">
       <div class="section-header">
-        <div class="section-icon" aria-hidden="true"><i class="fas fa-motorcycle"></i></div>
-        <div class="section-title-group">
-          <h2 id="oem-heading">OEM Performance</h2>
-          <p class="section-count" id="oem-count">9 dashboards</p>
-        </div>
+        <div class="sec-accent"></div>
+        <span class="sec-label" id="oem-heading">OEM Performance</span>
+        <span class="sec-count" id="oem-count">9 dashboards</span>
+        <i class="fas fa-motorcycle sec-icon" aria-hidden="true"></i>
       </div>
-      <div class="card-grid" id="grid-oem">
+      <div class="card-grid-oem" id="grid-oem">
 
-        <!-- Royal Enfield -->
         <a class="dash-card card-oem"
            href="https://royal-enfield-performance-analytics.vercel.app"
            target="_blank" rel="noopener noreferrer"
@@ -435,14 +409,13 @@ a{text-decoration:none;color:inherit}
           </div>
           <div class="card-body">
             <span class="card-badge">OEM</span>
-            <h3 class="card-title">Royal Enfield Performance Analytics</h3>
+            <h3 class="card-title">Royal Enfield Analytics</h3>
           </div>
           <div class="card-footer">
-            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+            <span class="card-cta" aria-hidden="true">Open <i class="fas fa-arrow-right"></i></span>
           </div>
         </a>
 
-        <!-- Hero -->
         <a class="dash-card card-oem"
            href="https://kunalkaushal-stack.github.io/kunalkaushal-stack-hero-ldr-dashboard-/"
            target="_blank" rel="noopener noreferrer"
@@ -458,11 +431,10 @@ a{text-decoration:none;color:inherit}
             <h3 class="card-title">Hero LDR Dashboard</h3>
           </div>
           <div class="card-footer">
-            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+            <span class="card-cta" aria-hidden="true">Open <i class="fas fa-arrow-right"></i></span>
           </div>
         </a>
 
-        <!-- TVS -->
         <a class="dash-card card-oem"
            href="https://yashtayal-a11y.github.io/TVS-LDR-Dashboard/"
            target="_blank" rel="noopener noreferrer"
@@ -478,11 +450,10 @@ a{text-decoration:none;color:inherit}
             <h3 class="card-title">TVS LDR Dashboard</h3>
           </div>
           <div class="card-footer">
-            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+            <span class="card-cta" aria-hidden="true">Open <i class="fas fa-arrow-right"></i></span>
           </div>
         </a>
 
-        <!-- Honda / HMSI -->
         <a class="dash-card card-oem"
            href="https://honda-motorcycles-and-scooters-anal.vercel.app"
            target="_blank" rel="noopener noreferrer"
@@ -495,14 +466,13 @@ a{text-decoration:none;color:inherit}
           </div>
           <div class="card-body">
             <span class="card-badge">OEM</span>
-            <h3 class="card-title">Honda Motorcycles &amp; Scooters Analytics</h3>
+            <h3 class="card-title">Honda Motorcycles &amp; Scooters</h3>
           </div>
           <div class="card-footer">
-            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+            <span class="card-cta" aria-hidden="true">Open <i class="fas fa-arrow-right"></i></span>
           </div>
         </a>
 
-        <!-- Harley-Davidson -->
         <a class="dash-card card-oem"
            href="https://h-d-x-440-lead-performance-analytic.vercel.app"
            target="_blank" rel="noopener noreferrer"
@@ -515,14 +485,13 @@ a{text-decoration:none;color:inherit}
           </div>
           <div class="card-body">
             <span class="card-badge">OEM</span>
-            <h3 class="card-title">Harley-Davidson X440 Lead Performance</h3>
+            <h3 class="card-title">Harley-Davidson X440</h3>
           </div>
           <div class="card-footer">
-            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+            <span class="card-cta" aria-hidden="true">Open <i class="fas fa-arrow-right"></i></span>
           </div>
         </a>
 
-        <!-- Ather -->
         <a class="dash-card card-oem"
            href="https://kunalkaushal-stack.github.io/ather-ldr-dashboard/ATHER_LDR/ATHER_LDR_Dashboard_v1.0.html"
            target="_blank" rel="noopener noreferrer"
@@ -532,21 +501,20 @@ a{text-decoration:none;color:inherit}
            aria-label="Ather Energy Lead Performance — opens in a new tab">
           <div class="card-logo-banner">
             <div style="display:flex;width:100%;height:100%;align-items:center;justify-content:center">
-              <svg viewBox="0 0 160 60" xmlns="http://www.w3.org/2000/svg" height="48">
-                <text x="80" y="42" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="36" font-weight="900" fill="#1B2A47" letter-spacing="2">ather</text>
+              <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg" height="44">
+                <text x="80" y="40" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="34" font-weight="900" fill="#1B2A47" letter-spacing="2">ather</text>
               </svg>
             </div>
           </div>
           <div class="card-body">
             <span class="card-badge">OEM</span>
-            <h3 class="card-title">Ather Energy Lead Performance</h3>
+            <h3 class="card-title">Ather Energy Performance</h3>
           </div>
           <div class="card-footer">
-            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+            <span class="card-cta" aria-hidden="true">Open <i class="fas fa-arrow-right"></i></span>
           </div>
         </a>
 
-        <!-- Ampere -->
         <a class="dash-card card-oem"
            href="https://ampere-ldr-dashboard.web.app/"
            target="_blank" rel="noopener noreferrer"
@@ -556,8 +524,8 @@ a{text-decoration:none;color:inherit}
            aria-label="Ampere LDR Dashboard — opens in a new tab">
           <div class="card-logo-banner">
             <div style="display:flex;width:100%;height:100%;align-items:center;justify-content:center">
-              <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" height="48">
-                <text x="100" y="44" text-anchor="middle" font-family="Arial,sans-serif" font-size="34" font-weight="700" fill="#00A651" letter-spacing="1">ampere</text>
+              <svg viewBox="0 0 200 56" xmlns="http://www.w3.org/2000/svg" height="44">
+                <text x="100" y="40" text-anchor="middle" font-family="Arial,sans-serif" font-size="32" font-weight="700" fill="#00A651" letter-spacing="1">ampere</text>
               </svg>
             </div>
           </div>
@@ -566,11 +534,10 @@ a{text-decoration:none;color:inherit}
             <h3 class="card-title">Ampere Lead Performance</h3>
           </div>
           <div class="card-footer">
-            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+            <span class="card-cta" aria-hidden="true">Open <i class="fas fa-arrow-right"></i></span>
           </div>
         </a>
 
-        <!-- Bajaj -->
         <a class="dash-card card-oem"
            href="https://bajaj-ldr-dashboard.web.app/"
            target="_blank" rel="noopener noreferrer"
@@ -586,11 +553,10 @@ a{text-decoration:none;color:inherit}
             <h3 class="card-title">Bajaj Lead Performance</h3>
           </div>
           <div class="card-footer">
-            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+            <span class="card-cta" aria-hidden="true">Open <i class="fas fa-arrow-right"></i></span>
           </div>
         </a>
 
-        <!-- Jawa -->
         <a class="dash-card card-oem"
            href="https://yashtayal-a11y.github.io/Jawa-Dashboard/"
            target="_blank" rel="noopener noreferrer"
@@ -606,23 +572,22 @@ a{text-decoration:none;color:inherit}
             <h3 class="card-title">Jawa Lead Performance</h3>
           </div>
           <div class="card-footer">
-            <span class="card-cta" aria-hidden="true">Open Dashboard <i class="fas fa-arrow-right"></i></span>
+            <span class="card-cta" aria-hidden="true">Open <i class="fas fa-arrow-right"></i></span>
           </div>
         </a>
 
       </div>
     </section>
 
-    <!-- ── BD Contribution ── -->
+    <!-- BD Contribution -->
     <section class="dash-section section-biz" id="sec-biz" aria-labelledby="biz-heading">
       <div class="section-header">
-        <div class="section-icon" aria-hidden="true"><i class="fas fa-chart-pie"></i></div>
-        <div class="section-title-group">
-          <h2 id="biz-heading">BD Contribution</h2>
-          <p class="section-count" id="biz-count">1 dashboard</p>
-        </div>
+        <div class="sec-accent"></div>
+        <span class="sec-label" id="biz-heading">BD Contribution</span>
+        <span class="sec-count" id="biz-count">1 dashboard</span>
+        <i class="fas fa-chart-pie sec-icon" aria-hidden="true"></i>
       </div>
-      <div class="card-grid" id="grid-biz">
+      <div class="card-grid-wide" id="grid-biz">
 
         <a class="dash-card card-biz"
            href="https://bd-contribution-site.vercel.app"
@@ -649,50 +614,42 @@ a{text-decoration:none;color:inherit}
 
   </main>
 
-  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-inner">
-      <p class="ft-primary">Bikes · Enterprise · Lead Performance Analytics</p>
-      <p class="ft-secondary" id="ft-date">Last Updated: Monday, 5 October 2026</p>
+      <div class="ft-logo">
+        <div class="ft-logo-icon" aria-hidden="true"><i class="fas fa-chart-bar"></i></div>
+        <span class="ft-brand">Bike<span>Dekho</span> Analytics</span>
+      </div>
+      <span class="ft-meta" id="ft-date">Bikes · Enterprise · Lead Performance</span>
     </div>
   </footer>
 
   <script>
-/* ─── 1. THEME MANAGEMENT ───────────────────────────────────── */
+/* ── 1. THEME ─────────────────────────────────────────────────── */
 const root     = document.documentElement;
 const themeBtn = document.getElementById('theme-btn');
 const themeIco = document.getElementById('theme-ico');
-
-function applyTheme(theme) {
-  root.setAttribute('data-theme', theme);
-  const isDark = theme === 'dark';
-  themeIco.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-  themeBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-  try { localStorage.setItem('bi-hub-theme', theme); } catch (_) {}
+function applyTheme(t) {
+  root.setAttribute('data-theme', t);
+  const dark = t === 'dark';
+  themeIco.className = dark ? 'fas fa-sun' : 'fas fa-moon';
+  themeBtn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  try { localStorage.setItem('bd-hub-theme', t); } catch(_) {}
 }
-
-function resolveInitialTheme() {
-  try {
-    const stored = localStorage.getItem('bi-hub-theme');
-    if (stored === 'dark' || stored === 'light') return stored;
-  } catch (_) {}
+function resolveTheme() {
+  try { const s = localStorage.getItem('bd-hub-theme'); if (s === 'dark' || s === 'light') return s; } catch(_) {}
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
+applyTheme(resolveTheme());
+themeBtn.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
 
-applyTheme(resolveInitialTheme());
-themeBtn.addEventListener('click', () => {
-  applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-});
+/* ── 2. DATE ──────────────────────────────────────────────────── */
+const fmt = d => d.toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+const now = fmt(new Date());
+document.getElementById('hero-date').textContent = now;
+document.getElementById('ft-date').textContent = now;
 
-/* ─── 2. DYNAMIC DATES ──────────────────────────────────────── */
-function formatDate(date) {
-  return date.toLocaleDateString('en-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-}
-const formatted = formatDate(new Date());
-document.getElementById('hero-date').textContent = formatted;
-document.getElementById('ft-date').textContent = 'Last Updated: ' + formatted;
-
-/* ─── 3. LIVE SEARCH ────────────────────────────────────────── */
+/* ── 3. SEARCH ────────────────────────────────────────────────── */
 const searchInput = document.getElementById('search-input');
 const clearBtn    = document.getElementById('search-clear');
 const noResults   = document.getElementById('no-results');
@@ -709,55 +666,66 @@ const mgrCount  = document.getElementById('mgr-count');
 const opsCount  = document.getElementById('ops-count');
 const oemCount  = document.getElementById('oem-count');
 const bizCount  = document.getElementById('biz-count');
+const navMgr    = document.getElementById('nav-mgr-count');
+const navOps    = document.getElementById('nav-ops-count');
+const navOem    = document.getElementById('nav-oem-count');
+const navBiz    = document.getElementById('nav-biz-count');
 const allCards  = Array.from(document.querySelectorAll('.dash-card'));
 
-function pluralize(n) { return n + (n === 1 ? ' dashboard' : ' dashboards'); }
+function countVisible(grid) { return grid.querySelectorAll('.dash-card:not(.hidden)').length; }
 
-function runSearch(query) {
-  const term = query.trim().toLowerCase();
-  term.length > 0 ? clearBtn.removeAttribute('hidden') : clearBtn.setAttribute('hidden', '');
-  let total = 0, mgrN = 0, opsN = 0, oemN = 0, bizN = 0;
-  allCards.forEach(card => {
+function updateSectionVisibility(sec, grid, statEl, countEl, navEl, singular, plural) {
+  const n = countVisible(grid);
+  const hide = n === 0;
+  sec.hidden = hide;
+  statEl.textContent = n;
+  const label = `${n} ${n === 1 ? singular : plural}`;
+  countEl.textContent = label;
+  if (navEl) navEl.textContent = n;
+}
+
+function runSearch(q) {
+  const term = q.trim().toLowerCase();
+  allCards.forEach(c => {
     const match = !term
-      || (card.getAttribute('data-name')     || '').includes(term)
-      || (card.getAttribute('data-desc')     || '').includes(term)
-      || (card.getAttribute('data-category') || '').includes(term);
-    card.classList.toggle('hidden', !match);
-    if (match) {
-      total++;
-      if (card.closest('#sec-mgr')) mgrN++;
-      if (card.closest('#sec-ops')) opsN++;
-      if (card.closest('#sec-oem')) oemN++;
-      if (card.closest('#sec-biz')) bizN++;
-    }
+      || c.dataset.name.includes(term)
+      || c.dataset.desc.includes(term)
+      || c.dataset.category.includes(term);
+    c.classList.toggle('hidden', !match);
   });
+  const mgrN = countVisible(document.getElementById('grid-mgr'));
+  const opsN = countVisible(document.getElementById('grid-ops'));
+  const oemN = countVisible(document.getElementById('grid-oem'));
+  const bizN = countVisible(document.getElementById('grid-biz'));
+  const total = mgrN + opsN + oemN + bizN;
+  secMgr.hidden = mgrN === 0;
+  secOps.hidden = opsN === 0;
+  secOem.hidden = oemN === 0;
+  secBiz.hidden = bizN === 0;
   statTotal.textContent = total;
   statMgr.textContent   = mgrN;
   statOps.textContent   = opsN;
   statOem.textContent   = oemN;
   statBiz.textContent   = bizN;
-  mgrCount.textContent  = pluralize(mgrN);
-  opsCount.textContent  = pluralize(opsN);
-  oemCount.textContent  = pluralize(oemN);
-  bizCount.textContent  = pluralize(bizN);
-  secMgr.style.display  = mgrN === 0 ? 'none' : '';
-  secOps.style.display  = opsN === 0 ? 'none' : '';
-  secOem.style.display  = oemN === 0 ? 'none' : '';
-  secBiz.style.display  = bizN === 0 ? 'none' : '';
-  noResults[total === 0 ? 'removeAttribute' : 'setAttribute']('hidden', '');
+  mgrCount.textContent  = `${mgrN} ${mgrN === 1 ? 'dashboard' : 'dashboards'}`;
+  opsCount.textContent  = `${opsN} ${opsN === 1 ? 'dashboard' : 'dashboards'}`;
+  oemCount.textContent  = `${oemN} ${oemN === 1 ? 'dashboard' : 'dashboards'}`;
+  bizCount.textContent  = `${bizN} ${bizN === 1 ? 'dashboard' : 'dashboards'}`;
+  if (navMgr) navMgr.textContent = mgrN;
+  if (navOps) navOps.textContent = opsN;
+  if (navOem) navOem.textContent = oemN;
+  if (navBiz) navBiz.textContent = bizN;
+  noResults.hidden = total > 0;
+  clearBtn.hidden = !term;
 }
 
 searchInput.addEventListener('input', e => runSearch(e.target.value));
-clearBtn.addEventListener('click', () => { searchInput.value = ''; searchInput.focus(); runSearch(''); });
-
-/* ─── 4. KEYBOARD ACCESSIBILITY ────────────────────────────── */
-allCards.forEach(card => {
-  card.addEventListener('keydown', e => {
-    if (e.key === ' ') {
-      e.preventDefault();
-      window.open(card.getAttribute('href'), '_blank', 'noopener,noreferrer');
-    }
-  });
+clearBtn.addEventListener('click', () => { searchInput.value = ''; runSearch(''); searchInput.focus(); });
+document.addEventListener('keydown', e => {
+  if ((e.key === '/' || e.key === 'k' && (e.ctrlKey || e.metaKey)) && document.activeElement !== searchInput) {
+    e.preventDefault(); searchInput.focus(); searchInput.select();
+  }
+  if (e.key === 'Escape' && document.activeElement === searchInput) { searchInput.value = ''; runSearch(''); }
 });
   </script>
 </body>
