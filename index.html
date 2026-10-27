@@ -81,12 +81,8 @@ img { display: block }
 
 /* Logo */
 .logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-right: 8px }
-.logo-mark {
-  width: 28px; height: 28px; border-radius: 6px;
-  background: var(--accent); display: flex; align-items: center; justify-content: center;
-  color: #fff; font-size: 11px; flex-shrink: 0;
-}
-.logo-text { font-size: 13.5px; font-weight: 600; color: var(--ink); letter-spacing: -0.025em; white-space: nowrap }
+.logo-img { height: 28px; width: auto; display: block; flex-shrink: 0 }
+.logo-text { font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: -0.01em; white-space: nowrap }
 
 /* Divider */
 .h-divider { width: 1px; height: 20px; background: var(--border); flex-shrink: 0; margin: 0 4px }
@@ -280,15 +276,15 @@ img { display: block }
     <div class="header-inner">
 
       <div class="logo">
-        <div class="logo-mark" aria-hidden="true"><i class="fas fa-chart-bar"></i></div>
-        <span class="logo-text">BikeDekho Analytics</span>
+        <img src="https://cdn.bikedekho.com/pwa/img/BD-Logo-D1-2025.svg" alt="BikeDekho" class="logo-img">
+        <span class="logo-text">Analytics</span>
       </div>
 
       <div class="h-divider" aria-hidden="true"></div>
 
       <nav class="section-nav" aria-label="Jump to section">
-        <a href="#sec-mgr" class="nav-link">Business Manager</a>
         <a href="#sec-ops" class="nav-link">Delivery Trackers</a>
+        <a href="#sec-mgr" class="nav-link">Business Manager</a>
         <a href="#sec-oem" class="nav-link">OEM Performance</a>
         <a href="#sec-biz" class="nav-link">BD Contribution</a>
       </nav>
@@ -346,38 +342,6 @@ img { display: block }
       <p>No dashboards match your search.</p>
     </div>
 
-    <!-- Business Manager -->
-    <section class="dash-section" id="sec-mgr" aria-labelledby="mgr-heading">
-      <div class="section-heading">
-        <span class="sec-title" id="mgr-heading">Business Manager</span>
-        <span class="sec-count" id="mgr-count">1 dashboard</span>
-      </div>
-      <div class="grid-wide" id="grid-mgr">
-
-        <a class="dash-card"
-           href="https://adityakumar-bikes.github.io/leadbu-manager/"
-           target="_blank" rel="noopener noreferrer"
-           data-name="bike aop tracker leadbu manager"
-           data-desc="bike aop tracker and lead operations management dashboard"
-           data-category="business manager"
-           aria-label="Bike AOP Tracker — opens in a new tab">
-          <div class="card-body">
-            <div class="card-icon-row">
-              <div class="card-icon" aria-hidden="true"><i class="fas fa-briefcase"></i></div>
-              <span class="card-cat">Business Manager</span>
-            </div>
-            <h3 class="card-title">Bike AOP Tracker</h3>
-            <p class="card-desc">AOP tracking and lead operations management.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-cta">Open dashboard <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
-            <span class="card-ext" aria-hidden="true"><i class="fas fa-external-link-alt"></i></span>
-          </div>
-        </a>
-
-      </div>
-    </section>
-
     <!-- Delivery Trackers -->
     <section class="dash-section" id="sec-ops" aria-labelledby="ops-heading">
       <div class="section-heading">
@@ -421,6 +385,38 @@ img { display: block }
             </div>
             <h3 class="card-title">CPS Lead Delivery Tracker</h3>
             <p class="card-desc">Monitor CPS lead delivery performance and daily lead flow.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-cta">Open dashboard <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+            <span class="card-ext" aria-hidden="true"><i class="fas fa-external-link-alt"></i></span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Business Manager -->
+    <section class="dash-section" id="sec-mgr" aria-labelledby="mgr-heading">
+      <div class="section-heading">
+        <span class="sec-title" id="mgr-heading">Business Manager</span>
+        <span class="sec-count" id="mgr-count">1 dashboard</span>
+      </div>
+      <div class="grid-wide" id="grid-mgr">
+
+        <a class="dash-card"
+           href="https://adityakumar-bikes.github.io/leadbu-manager/"
+           target="_blank" rel="noopener noreferrer"
+           data-name="bike aop tracker leadbu manager"
+           data-desc="bike aop tracker and lead operations management dashboard"
+           data-category="business manager"
+           aria-label="Bike AOP Tracker — opens in a new tab">
+          <div class="card-body">
+            <div class="card-icon-row">
+              <div class="card-icon" aria-hidden="true"><i class="fas fa-briefcase"></i></div>
+              <span class="card-cat">Business Manager</span>
+            </div>
+            <h3 class="card-title">Bike AOP Tracker</h3>
+            <p class="card-desc">AOP tracking and lead operations management.</p>
           </div>
           <div class="card-footer">
             <span class="card-cta">Open dashboard <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
@@ -649,8 +645,7 @@ img { display: block }
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="ft-left">
-        <div class="ft-mark" aria-hidden="true"><i class="fas fa-chart-bar"></i></div>
-        <span class="ft-name">BikeDekho Analytics</span>
+        <img src="https://cdn.bikedekho.com/pwa/img/BD-Logo-D1-2025.svg" alt="BikeDekho" style="height:22px;width:auto;display:block">
       </div>
       <span class="ft-right" id="ft-date">Bikes · Enterprise · Lead Intelligence</span>
     </div>
