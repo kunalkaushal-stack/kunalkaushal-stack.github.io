@@ -93,6 +93,7 @@ img { display: block }
   font-size: 13px; font-weight: 500; color: var(--muted);
   padding: 5px 10px; border-radius: var(--radius-sm);
   transition: color .15s, background .15s; white-space: nowrap;
+  background: none; border: none; cursor: pointer; font-family: inherit;
 }
 .nav-link:hover { color: var(--ink); background: var(--surface-2) }
 
@@ -284,11 +285,9 @@ img { display: block }
       <div class="h-divider" aria-hidden="true"></div>
 
       <nav class="section-nav" aria-label="Jump to section">
-        <a href="#sec-ops" class="nav-link">Operations</a>
-        <a href="#sec-oem" class="nav-link">OEM Performance</a>
-        <a href="#sec-biz" class="nav-link">BD Contribution</a>
-        <a href="#sec-oem" class="nav-link">OEM Performance</a>
-        <a href="#sec-biz" class="nav-link">BD Contribution</a>
+        <button class="nav-link" data-target="sec-ops">Operations</button>
+        <button class="nav-link" data-target="sec-oem">OEM Performance</button>
+        <button class="nav-link" data-target="sec-biz">BD Contribution</button>
       </nav>
 
       <div class="search-wrap" role="search">
@@ -717,6 +716,13 @@ function runSearch(q) {
 
 searchInput.addEventListener('input', e => runSearch(e.target.value));
 searchClear.addEventListener('click', () => { searchInput.value = ''; runSearch(''); searchInput.focus(); });
+
+document.querySelectorAll('.nav-link[data-target]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById(btn.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
 
 document.addEventListener('keydown', e => {
   if (e.key === '/' && document.activeElement !== searchInput) {
