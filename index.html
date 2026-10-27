@@ -283,8 +283,9 @@ img { display: block }
       <div class="h-divider" aria-hidden="true"></div>
 
       <nav class="section-nav" aria-label="Jump to section">
-        <a href="#sec-ops" class="nav-link">Delivery Trackers</a>
-        <a href="#sec-mgr" class="nav-link">Business Manager</a>
+        <a href="#sec-ops" class="nav-link">Operations</a>
+        <a href="#sec-oem" class="nav-link">OEM Performance</a>
+        <a href="#sec-biz" class="nav-link">BD Contribution</a>
         <a href="#sec-oem" class="nav-link">OEM Performance</a>
         <a href="#sec-biz" class="nav-link">BD Contribution</a>
       </nav>
@@ -316,11 +317,7 @@ img { display: block }
       </div>
       <span class="subbar-sep" aria-hidden="true">·</span>
       <div class="subbar-stat">
-        <strong id="stat-mgr">1</strong> Business Manager
-      </div>
-      <span class="subbar-sep" aria-hidden="true">·</span>
-      <div class="subbar-stat">
-        <strong id="stat-ops">2</strong> Delivery
+        <strong id="stat-ops">3</strong> Operations
       </div>
       <span class="subbar-sep" aria-hidden="true">·</span>
       <div class="subbar-stat">
@@ -330,6 +327,7 @@ img { display: block }
       <div class="subbar-stat">
         <strong id="stat-biz">1</strong> BD
       </div>
+      <strong id="stat-mgr" style="display:none">1</strong>
       <span class="subbar-date" id="hero-date">Monday, 27 October 2026</span>
     </div>
   </div>
@@ -342,13 +340,34 @@ img { display: block }
       <p>No dashboards match your search.</p>
     </div>
 
-    <!-- Delivery Trackers -->
+    <!-- Operations (Delivery Trackers + Business Manager combined) -->
     <section class="dash-section" id="sec-ops" aria-labelledby="ops-heading">
       <div class="section-heading">
-        <span class="sec-title" id="ops-heading">Delivery Trackers</span>
-        <span class="sec-count" id="ops-count">2 dashboards</span>
+        <span class="sec-title" id="ops-heading">Operations</span>
+        <span class="sec-count" id="ops-count">3 dashboards</span>
       </div>
       <div class="grid-wide" id="grid-ops">
+
+        <a class="dash-card"
+           href="https://adityakumar-bikes.github.io/leadbu-manager/"
+           target="_blank" rel="noopener noreferrer"
+           data-name="bike aop tracker leadbu manager"
+           data-desc="bike aop tracker and lead operations management dashboard"
+           data-category="business manager"
+           aria-label="Bike AOP Tracker — opens in a new tab">
+          <div class="card-body">
+            <div class="card-icon-row">
+              <div class="card-icon" aria-hidden="true"><i class="fas fa-briefcase"></i></div>
+              <span class="card-cat">Business Manager</span>
+            </div>
+            <h3 class="card-title">Bike AOP Tracker</h3>
+            <p class="card-desc">AOP tracking and lead operations management.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-cta">Open dashboard <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+            <span class="card-ext" aria-hidden="true"><i class="fas fa-external-link-alt"></i></span>
+          </div>
+        </a>
 
         <a class="dash-card"
            href="https://daily-trigger-dashboard.vercel.app"
@@ -395,37 +414,8 @@ img { display: block }
       </div>
     </section>
 
-    <!-- Business Manager -->
-    <section class="dash-section" id="sec-mgr" aria-labelledby="mgr-heading">
-      <div class="section-heading">
-        <span class="sec-title" id="mgr-heading">Business Manager</span>
-        <span class="sec-count" id="mgr-count">1 dashboard</span>
-      </div>
-      <div class="grid-wide" id="grid-mgr">
-
-        <a class="dash-card"
-           href="https://adityakumar-bikes.github.io/leadbu-manager/"
-           target="_blank" rel="noopener noreferrer"
-           data-name="bike aop tracker leadbu manager"
-           data-desc="bike aop tracker and lead operations management dashboard"
-           data-category="business manager"
-           aria-label="Bike AOP Tracker — opens in a new tab">
-          <div class="card-body">
-            <div class="card-icon-row">
-              <div class="card-icon" aria-hidden="true"><i class="fas fa-briefcase"></i></div>
-              <span class="card-cat">Business Manager</span>
-            </div>
-            <h3 class="card-title">Bike AOP Tracker</h3>
-            <p class="card-desc">AOP tracking and lead operations management.</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-cta">Open dashboard <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
-            <span class="card-ext" aria-hidden="true"><i class="fas fa-external-link-alt"></i></span>
-          </div>
-        </a>
-
-      </div>
-    </section>
+    <!-- hidden anchor for Business Manager (search still works) -->
+    <span id="sec-mgr" style="display:none"></span>
 
     <!-- OEM Performance -->
     <section class="dash-section" id="sec-oem" aria-labelledby="oem-heading">
@@ -681,24 +671,21 @@ const searchClear = document.getElementById('search-clear');
 const searchKbd   = document.getElementById('search-kbd');
 const noResults   = document.getElementById('no-results');
 
-const secMgr = document.getElementById('sec-mgr');
 const secOps = document.getElementById('sec-ops');
 const secOem = document.getElementById('sec-oem');
 const secBiz = document.getElementById('sec-biz');
 
 const statTotal = document.getElementById('stat-total');
-const statMgr   = document.getElementById('stat-mgr');
 const statOps   = document.getElementById('stat-ops');
 const statOem   = document.getElementById('stat-oem');
 const statBiz   = document.getElementById('stat-biz');
-const mgrCount  = document.getElementById('mgr-count');
 const opsCount  = document.getElementById('ops-count');
 const oemCount  = document.getElementById('oem-count');
 const bizCount  = document.getElementById('biz-count');
 
 const allCards = Array.from(document.querySelectorAll('.dash-card'));
 
-function vis(grid) { return grid.querySelectorAll('.dash-card:not(.hidden)').length; }
+function vis(el) { return el ? el.querySelectorAll('.dash-card:not(.hidden)').length : 0; }
 function label(n, s, p) { return `${n} ${n === 1 ? s : p}`; }
 
 function runSearch(q) {
@@ -708,24 +695,20 @@ function runSearch(q) {
     c.classList.toggle('hidden', !ok);
   });
 
-  const mn = vis(document.getElementById('grid-mgr'));
   const on = vis(document.getElementById('grid-ops'));
   const en = vis(document.getElementById('grid-oem'));
   const bn = vis(document.getElementById('grid-biz'));
-  const total = mn + on + en + bn;
+  const total = on + en + bn;
 
-  secMgr.hidden = mn === 0;
   secOps.hidden = on === 0;
   secOem.hidden = en === 0;
   secBiz.hidden = bn === 0;
 
   statTotal.textContent = total;
-  statMgr.textContent   = mn;
   statOps.textContent   = on;
   statOem.textContent   = en;
   statBiz.textContent   = bn;
 
-  mgrCount.textContent = label(mn, 'dashboard', 'dashboards');
   opsCount.textContent = label(on, 'dashboard', 'dashboards');
   oemCount.textContent = label(en, 'dashboard', 'dashboards');
   bizCount.textContent = label(bn, 'dashboard', 'dashboards');
